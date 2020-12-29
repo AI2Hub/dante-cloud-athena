@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ddbd86ec-cedc-449a-9f62-04e15bb0e768" name="Default Changelist" comment="创建工程">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +84,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1609237766437</updated>
-      <workItem from="1609237767696" duration="5191000" />
+      <workItem from="1609237767696" duration="5293000" />
     </task>
     <task id="LOCAL-00001" summary="创建工程">
       <created>1609244108860</created>
