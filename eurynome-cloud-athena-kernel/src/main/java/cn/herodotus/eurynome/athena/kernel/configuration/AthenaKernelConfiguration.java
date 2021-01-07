@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2020 the original author or authors.
+ * Copyright (c) 2020-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,41 +15,41 @@
  *
  *
  * Project Name: eurynome-cloud-athena
- * Module Name: eurynome-cloud-athena-starter
- * File Name: AutoConfiguration.java
+ * Module Name: eurynome-cloud-athena-kernel
+ * File Name: AthenaKernelConfiguration.java
  * Author: gengwei.zheng
- * Date: 2020/12/30 上午8:59
- * LastModified: 2020/12/29 下午8:53
+ * Date: 2021/1/6 下午12:00
+ * LastModified: 2021/1/6 下午12:00
  */
 
-package cn.herodotus.eurynome.athena.autoconfigure;
+package cn.herodotus.eurynome.athena.kernel.configuration;
 
-import cn.herodotus.eurynome.crud.annotation.EnableHerodotusCrud;
-import cn.herodotus.eurynome.security.annotation.EnableHerodotusSecurity;
-import cn.herodotus.eurynome.upms.logic.annotation.EnableUpmsLogic;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
 
 /**
  * <p>Project: eurynome-cloud-athena </p>
- * <p>File: AutoConfiguration.java </p>
+ * <p>File: AthenaKernelConfiguration </p>
  *
- * <p>Description: Starter Auto 配置 </p>
+ * <p>Description: TODO </p>
  *
  * @author : gengwei.zheng
- * @date : 2020/12/29 20:52
+ * @date : 2021/1/6 12:00
  */
 @Slf4j
 @Configuration
-@EnableHerodotusCrud
-@EnableHerodotusSecurity
-@EnableUpmsLogic
-public class AutoConfiguration {
+@ComponentScan(basePackages = {
+        "cn.herodotus.eurynome.athena.kernel.configuration",
+        "cn.herodotus.eurynome.athena.kernel.service",
+        "cn.herodotus.eurynome.athena.kernel.controller"
+})
+public class AthenaKernelConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Eurynome] |- Components [Athena Starter] Auto Configure.");
+        log.info("[Eurynome] |- Bean [Athena Kernel] Auto Configure.");
     }
 }

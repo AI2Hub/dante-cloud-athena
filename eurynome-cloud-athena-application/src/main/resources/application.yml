@@ -1,0 +1,132 @@
+server:
+  port: 9998
+  servlet:
+    session:
+      timeout: 1800
+spring:
+  application:
+    name:  @artifactId@
+  profiles:
+    active: develpment
+  main:
+    allow-bean-definition-overriding: true
+
+jasypt:
+  encryptor:
+    password: ${JASPYT_HOME:2bda7d3a-dba1-45a4-b08e-cbd731a0418e}
+
+---
+# 开发环境配置
+spring:
+  profiles: develpment
+  datasource:
+    continue-on-error: true
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    url: jdbc:p6spy:postgresql://localhost:15432/herodotus
+    username: herodotus
+    password: herodotus
+    initialization-mode: always
+    data-username: ${spring.datasource.username}
+    data-password: ${spring.datasource.password}
+    schema-username: ${spring.datasource.username}
+    schema-password: ${spring.datasource.password}
+    #    schema: classpath:sql/schema-postgresql.sql
+    #    data: classpath:sql/data-postgresql.sql
+    sql-script-encoding: UTF-8
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      # Lowest acceptable connection timeout is 250 ms. Default: 30000 (30 seconds)
+      connection-timeout: 5000
+      connection-test-query: SELECT 1
+      # The minimum allowed value is 10000ms (10 seconds). Default: 600000 (10 minutes)
+      idle-timeout: 600000
+      minimum-idle: 10
+      maximum-pool-size: 20
+      # We strongly recommend setting this value, and it should be at least 30 seconds less than any database or infrastructure imposed connection time limit.
+      # Default: 1800000 (30 minutes)
+      max-lifetime: 1800000
+      pool-name: Hikari
+      # Lowest acceptable validation timeout is 250 ms. Default: 5000
+      validation-timeout: 5000
+      data-source-properties:
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        cachePrepStmts: true
+        cacheResultSetMetadata: true
+        cacheServerConfiguration: true
+        useServerPrepStmts: true
+        useLocalSessionState: true
+        rewriteBatchedStatement: true
+        elideSetAutoCommits: true
+        maintainTimeStats: false
+  jpa:
+    database: postgresql
+    generate-ddl: true
+    open-in-view: true
+    hibernate:
+      # DDL mode. This is actually a shortcut for the "hibernate.hbm2ddl.auto" property. Default to "create-drop" when using an embedded database, "none" otherwise.spring.jpa.hibernate.ddl-auto=update
+      ddl-auto: update
+      naming:
+        physical-strategy: cn.herodotus.eurynome.data.jpa.hibernate.HerodotusPhysicalNamingStrategy
+    properties:
+      hibernate:
+        dialect: cn.herodotus.eurynome.data.jpa.hibernate.postgresql.HerodotusPostgreSQLDialect
+        format_sql: false
+        show_sql: false
+        generate_statistics: false
+        temp:
+          use_jdbc_metadata_defaults: false
+  redis:
+    database: 0
+    host: 192.168.101.10
+    #    password: ${herodotus.environment.redis-password}
+    port: 6379
+    timeout: 10000
+    # 如果使用的jedis 则将lettuce改成jedis即可
+    lettuce:
+      pool:
+        # 最大活跃链接数 默认8
+        max-active: 10
+        max-wait: 10000
+        # 最大空闲连接数 默认8
+        max-idle: 10
+        # 最小空闲连接数 默认0
+        min-idle: 5
+
+jetcache:
+  statIntervalMinutes: 15
+  areaInCacheName: false
+  local:
+    default:
+      type: caffeine
+      keyConvertor: fastjson
+      limit: 1000
+  remote:
+    default:
+      type: redis.lettuce
+      keyConvertor: fastjson
+      valueEncoder: java
+      valueDecoder: java
+      poolConfig:
+        minIdle: ${spring.redis.lettuce.pool.min-idle}
+        maxIdle: ${spring.redis.lettuce.pool.max-idle}
+        maxTotal: ${spring.redis.lettuce.pool.max-active}
+        maxWait: ${spring.redis.lettuce.pool.max-wait}
+      uri:
+        - redis://${spring.redis.host}:${spring.redis.port}/${spring.redis.database}
+
+logging:
+  level:
+    org:
+      springframework: INFO
+    cn:
+      herodotus:
+        eurynome: DEBUG
+    com:
+      alicp:
+        jetcache: INFO
+
+---
+# 生产环境配置
+spring:
+  profiles: production
