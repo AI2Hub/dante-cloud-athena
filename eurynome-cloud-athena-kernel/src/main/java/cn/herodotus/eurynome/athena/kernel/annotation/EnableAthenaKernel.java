@@ -25,8 +25,6 @@
 package cn.herodotus.eurynome.athena.kernel.annotation;
 
 import cn.herodotus.eurynome.athena.kernel.configuration.AthenaKernelConfiguration;
-import cn.herodotus.eurynome.data.configuration.RedisConfiguration;
-import cn.herodotus.eurynome.security.annotation.EnableHerodotusSecurity;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -43,7 +41,6 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@EnableHerodotusSecurity
 @Import(AthenaKernelConfiguration.class)
 public @interface EnableAthenaKernel {
 }

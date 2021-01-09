@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019-2020 the original author or authors.
+ * Copyright (c) 2020-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,17 @@
  * limitations under the License.
  *
  *
- * Project Name: eurynome-cloud
- * Module Name: eurynome-cloud-starter
- * File Name: ResourceServerConfiguration.java
+ * Project Name: eurynome-cloud-athena
+ * Module Name: eurynome-cloud-athena-kernel
+ * File Name: ResourceServerAutoConfiguration.java
  * Author: gengwei.zheng
- * Date: 2020/6/6 下午12:51
- * LastModified: 2020/6/6 下午12:50
+ * Date: 2021/1/7 下午4:57
+ * LastModified: 2021/1/7 下午4:46
  */
 
-package cn.herodotus.eurynome.athena.autoconfigure;
+package cn.herodotus.eurynome.athena.kernel.configuration;
 
+import cn.herodotus.eurynome.athena.kernel.authorization.DataSourceSecurityMetadata;
 import cn.herodotus.eurynome.rest.properties.ApplicationProperties;
 import cn.herodotus.eurynome.rest.properties.RestProperties;
 import cn.herodotus.eurynome.security.authentication.access.HerodotusAccessDecisionManager;
@@ -32,8 +33,8 @@ import cn.herodotus.eurynome.security.authentication.access.HerodotusSecurityMet
 import cn.herodotus.eurynome.security.authentication.access.RequestMappingScanner;
 import cn.herodotus.eurynome.security.properties.SecurityProperties;
 import cn.herodotus.eurynome.security.response.HerodotusAuthenticationEntryPoint;
-import cn.herodotus.eurynome.security.strategy.LocalCacheSecurityMetadata;
 import cn.herodotus.eurynome.security.strategy.SecurityMetadataStorage;
+import cn.herodotus.eurynome.upms.logic.service.system.SysAuthorityService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
@@ -63,14 +64,12 @@ import java.util.List;
 @Slf4j
 @Configuration
 @EnableResourceServer
-public class ResourceServerAutoConfiguration extends ResourceServerConfigurerAdapter {
+public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
     @Autowired
     private SecurityProperties securityProperties;
     @Autowired
-    private ResourceServerProperties resourceServerProperties;
-    @Autowired
-    private DefaultAccessTokenConverter defaultAccessTokenConverter;
+    private SysAuthorityService sysAuthorityService;
 
     /**
      * 服务自身权限验证所需的Security Metadata存储配置
@@ -81,9 +80,10 @@ public class ResourceServerAutoConfiguration extends ResourceServerConfigurerAda
     @Bean
     @ConditionalOnMissingBean(SecurityMetadataStorage.class)
     public SecurityMetadataStorage securityMetadataStorage() {
-        LocalCacheSecurityMetadata localCacheSecurityMetadata = new LocalCacheSecurityMetadata();
+        DataSourceSecurityMetadata dataSourceSecurityMetadata = new DataSourceSecurityMetadata();
+        dataSourceSecurityMetadata.setSysAuthorityService(sysAuthorityService);
         log.debug("[Eurynome] |- Bean [Security Metadata Local Storage] Auto Configure.");
-        return localCacheSecurityMetadata;
+        return dataSourceSecurityMetadata;
     }
 
     /**

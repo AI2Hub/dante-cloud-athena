@@ -10,6 +10,10 @@ spring:
     active: develpment
   main:
     allow-bean-definition-overriding: true
+  data:
+    redis:
+      repositories:
+        enabled: false
 
 jasypt:
   encryptor:

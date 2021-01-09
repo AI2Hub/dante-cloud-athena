@@ -24,6 +24,7 @@
 
 package cn.herodotus.eurynome.athena.autoconfigure;
 
+import cn.herodotus.eurynome.athena.kernel.annotation.EnableAthenaKernel;
 import cn.herodotus.eurynome.crud.annotation.EnableHerodotusCrud;
 import cn.herodotus.eurynome.security.annotation.EnableHerodotusSecurity;
 import cn.herodotus.eurynome.upms.logic.annotation.EnableUpmsLogic;
@@ -46,10 +47,11 @@ import javax.annotation.PostConstruct;
 @EnableHerodotusCrud
 @EnableHerodotusSecurity
 @EnableUpmsLogic
+@EnableAthenaKernel
 public class AutoConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Eurynome] |- Components [Athena Starter] Auto Configure.");
+        log.info("[Eurynome] |- Starter [Athena Starter] Auto Configure.");
     }
 }

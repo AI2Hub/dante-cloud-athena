@@ -50,6 +50,6 @@ public class AthenaKernelConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Eurynome] |- Bean [Athena Kernel] Auto Configure.");
+        log.info("[Eurynome] |- Components [Athena Kernel] Auto Configure.");
     }
 }
