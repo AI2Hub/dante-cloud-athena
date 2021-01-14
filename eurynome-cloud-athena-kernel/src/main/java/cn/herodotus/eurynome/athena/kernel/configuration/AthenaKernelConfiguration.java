@@ -25,8 +25,12 @@
 package cn.herodotus.eurynome.athena.kernel.configuration;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import javax.annotation.PostConstruct;
 
@@ -51,5 +55,22 @@ public class AthenaKernelConfiguration {
     @PostConstruct
     public void postConstruct() {
         log.info("[Eurynome] |- Components [Athena Kernel] Auto Configure.");
+    }
+
+    @Bean
+    public CorsFilter corsFilter() {
+
+        log.debug("[Eurynome] |- Bean [Cors Filter] Auto Configure.");
+
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.addAllowedOrigin("*");
+        corsConfiguration.addAllowedMethod("*");
+        corsConfiguration.addAllowedHeader("*");
+
+        UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
+        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
+
+        return new CorsFilter(urlBasedCorsConfigurationSource);
     }
 }

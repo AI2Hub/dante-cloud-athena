@@ -24,13 +24,19 @@
 
 package cn.herodotus.eurynome.athena.kernel.configuration;
 
+import cn.herodotus.eurynome.athena.kernel.service.FormAuthenticationFailureHandler;
 import cn.herodotus.eurynome.athena.kernel.service.OauthUserDetailsService;
+import cn.herodotus.eurynome.security.authentication.form.FormLoginDecryptParameterAuthenticationFilter;
+import cn.herodotus.eurynome.security.authentication.form.FormLoginWebAuthenticationDetailsSource;
 import cn.herodotus.eurynome.security.properties.SecurityProperties;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -41,6 +47,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+
+import javax.annotation.Resource;
+import javax.sql.DataSource;
+import java.util.List;
 
 /**
  * <p>Description: 说明 </p>
@@ -71,6 +84,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private OauthUserDetailsService oauth2UserDetailsService;
     @Autowired
     private SecurityProperties securityProperties;
+    @Autowired
+    private FormLoginWebAuthenticationDetailsSource formLoginWebAuthenticationDetailsSource;
+    @Autowired
+    private FormAuthenticationFailureHandler formAuthenticationFailureHandler;
+    @Resource
+    private DataSource dataSource;
 
     @Bean
     @Override
@@ -113,6 +132,27 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return provider;
     }
 
+    @Bean
+    public FormLoginDecryptParameterAuthenticationFilter formLoginDecryptParameterAuthenticationFilter() throws Exception {
+        FormLoginDecryptParameterAuthenticationFilter filter = new FormLoginDecryptParameterAuthenticationFilter(securityProperties);
+        filter.setAuthenticationManager(authenticationManagerBean());
+        filter.setAuthenticationFailureHandler(formAuthenticationFailureHandler);
+//        filter.setAuthenticationSuccessHandler(formAuthenticationSuccessHandler);
+        filter.setAuthenticationDetailsSource(formLoginWebAuthenticationDetailsSource);
+        filter.setUsernameParameter(securityProperties.getLogin().getUsernameParameter());
+        filter.setPasswordParameter(securityProperties.getLogin().getPasswordParameter());
+        return filter;
+    }
+
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
+        jdbcTokenRepository.setDataSource(dataSource);
+        //自动创建数据库表，使用一次后注释掉，不然会报错
+//            jdbcTokenRepository.setCreateTableOnStartup(true);
+        return jdbcTokenRepository;
+    }
+
     /**
      * 大体意思就是antMatcher()``是HttpSecurity的一个方法，他只告诉了Spring我只配置了一个我这个Adapter能处理哪个的url，它与authorizeRequests()没有任何关系。
      * <p>
@@ -129,14 +169,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
 
         // @formatter:off
-        http.requestMatchers().antMatchers("/oauth/**", "/login**")
+        http.requestMatchers().antMatchers(HttpMethod.OPTIONS, "/oauth/**", "/login**")
                 .and()
                     .authorizeRequests()
                     .antMatchers("/oauth/**").authenticated()
                     .antMatchers("/oauth/client_details").permitAll()
-                .and()
-                    .authorizeRequests()
-                    .anyRequest().authenticated()
+//                .and()
+//                    .authorizeRequests()
+//                    .anyRequest().authenticated()
                 .and()
                     .formLogin()
                 // 可以设置自定义的登录页面 或者 （登录）接口
@@ -145,9 +185,34 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                         .loginPage(securityProperties.getLogin().getLoginUrl()).permitAll()
                         .defaultSuccessUrl("/oauth/confirm_access")
                 .and()
+                    .rememberMe()
+                        .tokenRepository(persistentTokenRepository())
+                        .tokenValiditySeconds(securityProperties.getRememberMe().getValiditySeconds())
+                        .key(securityProperties.getRememberMe().getCookieName())
+                        .userDetailsService(oauth2UserDetailsService)
+                .and()
+                    .addFilterBefore(formLoginDecryptParameterAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+
+                    .authorizeRequests()
+                    // 对所有静态资源放行，避免页面样式无法显示
+                    .antMatchers(whitelistToAntMatchers(securityProperties.getInterceptor().getWhitelist())).permitAll()
+                    // 其余所有请求都需要认证
+                    .anyRequest().authenticated()
+                .and()
                     .logout().permitAll()
+                .and()
+                    .csrf()
                 .and()
                     .csrf().disable();
         // @formatter:on
+    }
+
+    private String[] whitelistToAntMatchers(List<String> whitelist) {
+        if (CollectionUtils.isNotEmpty(whitelist)) {
+            String[] result = new String[whitelist.size()];
+            return  whitelist.toArray(result);
+        }
+
+        return new String[] {};
     }
 }

@@ -96,6 +96,10 @@ spring:
         max-idle: 10
         # 最小空闲连接数 默认0
         min-idle: 5
+  thymeleaf:
+    mode: HTML
+    cache: false
+    prefix: classpath:/templates
 
 jetcache:
   statIntervalMinutes: 15

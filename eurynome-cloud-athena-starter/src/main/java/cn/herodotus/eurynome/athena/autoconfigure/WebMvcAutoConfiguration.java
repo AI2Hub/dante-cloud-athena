@@ -1,10 +1,12 @@
 package cn.herodotus.eurynome.athena.autoconfigure;
 
+import com.google.common.net.HttpHeaders;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -17,6 +19,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Slf4j
 @Configuration(proxyBeanMethods = false)
 public class WebMvcAutoConfiguration implements WebMvcConfigurer {
+
+    private final static String[] METHODS = new String[] { "GET", "POST", "PUT", "DELETE" };
+    private final static String[] HEADERS = new String[] { HttpHeaders.AUTHORIZATION, HttpHeaders.CONTENT_TYPE };
 
     /**
      * 多个WebSecurityConfigurerAdapter
