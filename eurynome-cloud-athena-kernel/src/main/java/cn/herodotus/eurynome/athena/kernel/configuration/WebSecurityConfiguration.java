@@ -24,14 +24,14 @@
 
 package cn.herodotus.eurynome.athena.kernel.configuration;
 
-import cn.herodotus.eurynome.athena.kernel.service.FormAuthenticationFailureHandler;
+import cn.herodotus.eurynome.athena.kernel.service.FormLoginAuthenticationFailureHandler;
 import cn.herodotus.eurynome.athena.kernel.service.OauthUserDetailsService;
+import cn.herodotus.eurynome.security.authentication.form.FormLoginAuthenticationProvider;
 import cn.herodotus.eurynome.security.authentication.form.FormLoginDecryptParameterAuthenticationFilter;
 import cn.herodotus.eurynome.security.authentication.form.FormLoginWebAuthenticationDetailsSource;
 import cn.herodotus.eurynome.security.properties.SecurityProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,7 +39,6 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -87,7 +86,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private FormLoginWebAuthenticationDetailsSource formLoginWebAuthenticationDetailsSource;
     @Autowired
-    private FormAuthenticationFailureHandler formAuthenticationFailureHandler;
+    private FormLoginAuthenticationFailureHandler formLoginAuthenticationFailureHandler;
     @Resource
     private DataSource dataSource;
 
@@ -125,7 +124,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
      */
     @Bean
     public AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        FormLoginAuthenticationProvider provider = new FormLoginAuthenticationProvider();
         provider.setUserDetailsService(oauth2UserDetailsService);
         provider.setPasswordEncoder(passwordEncoder());
         provider.setHideUserNotFoundExceptions(false);
@@ -136,7 +135,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     public FormLoginDecryptParameterAuthenticationFilter formLoginDecryptParameterAuthenticationFilter() throws Exception {
         FormLoginDecryptParameterAuthenticationFilter filter = new FormLoginDecryptParameterAuthenticationFilter(securityProperties);
         filter.setAuthenticationManager(authenticationManagerBean());
-        filter.setAuthenticationFailureHandler(formAuthenticationFailureHandler);
+//        formAuthenticationFailureHandler.setDefaultFailureUrl(securityProperties.getLogin().getLoginUrl());
+        filter.setAuthenticationFailureHandler(formLoginAuthenticationFailureHandler);
 //        filter.setAuthenticationSuccessHandler(formAuthenticationSuccessHandler);
         filter.setAuthenticationDetailsSource(formLoginWebAuthenticationDetailsSource);
         filter.setUsernameParameter(securityProperties.getLogin().getUsernameParameter());
@@ -174,36 +174,26 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .authorizeRequests()
                     .antMatchers("/oauth/**").authenticated()
                     .antMatchers("/oauth/client_details").permitAll()
-//                .and()
-//                    .authorizeRequests()
-//                    .anyRequest().authenticated()
+                    .antMatchers(whitelistToAntMatchers(securityProperties.getInterceptor().getWhitelist())).permitAll()
+                .and()
+                    .addFilterBefore(formLoginDecryptParameterAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+                    .authorizeRequests()
+                    .anyRequest().authenticated()
                 .and()
                     .formLogin()
                 // 可以设置自定义的登录页面 或者 （登录）接口
                 // 注意1： 一般来说设置成（登录）接口后，该接口会配置成无权限即可访问，所以会走匿名filter, 也就意味着不会走认证过程了，所以我们一般不直接设置成接口地址
                 // 注意2： 这里配置的 地址一定要配置成无权限访问，否则将出现 一直重定向问题（因为无权限后又会重定向到这里配置的登录页url）
                         .loginPage(securityProperties.getLogin().getLoginUrl()).permitAll()
-                        .defaultSuccessUrl("/oauth/confirm_access")
-                .and()
-                    .rememberMe()
-                        .tokenRepository(persistentTokenRepository())
-                        .tokenValiditySeconds(securityProperties.getRememberMe().getValiditySeconds())
-                        .key(securityProperties.getRememberMe().getCookieName())
-                        .userDetailsService(oauth2UserDetailsService)
-                .and()
-                    .addFilterBefore(formLoginDecryptParameterAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-
-                    .authorizeRequests()
-                    // 对所有静态资源放行，避免页面样式无法显示
-                    .antMatchers(whitelistToAntMatchers(securityProperties.getInterceptor().getWhitelist())).permitAll()
-                    // 其余所有请求都需要认证
-                    .anyRequest().authenticated()
-                .and()
-                    .logout().permitAll()
-                .and()
-                    .csrf()
-                .and()
-                    .csrf().disable();
+//                .and()
+//                    .rememberMe()
+//                        .tokenRepository(persistentTokenRepository())
+//                        .tokenValiditySeconds(securityProperties.getRememberMe().getValiditySeconds())
+//                        .key(securityProperties.getRememberMe().getCookieName())
+//                        .userDetailsService(oauth2UserDetailsService)
+                .and().logout().permitAll()
+                .and().cors()
+                .and().csrf().disable();
         // @formatter:on
     }
 

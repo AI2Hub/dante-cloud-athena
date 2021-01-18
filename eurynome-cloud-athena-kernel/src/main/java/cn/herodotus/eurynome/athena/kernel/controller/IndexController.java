@@ -1,7 +1,9 @@
 package cn.herodotus.eurynome.athena.kernel.controller;
 
 import cn.herodotus.eurynome.athena.kernel.service.OauthClientDetailsService;
+import cn.herodotus.eurynome.common.domain.Result;
 import cn.herodotus.eurynome.security.properties.SecurityProperties;
+import cn.herodotus.eurynome.security.response.SecurityGlobalExceptionHandler;
 import cn.herodotus.eurynome.security.utils.SecurityUtils;
 import cn.herodotus.eurynome.security.utils.SymmetricUtils;
 import com.alibaba.fastjson.JSON;
@@ -10,6 +12,7 @@ import org.apache.commons.codec.DecoderException;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.security.oauth2.provider.AuthorizationRequest;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.stereotype.Controller;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.HtmlUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -45,7 +49,7 @@ public class IndexController {
      *
      * @return
      */
-    @GetMapping("/")
+    @RequestMapping("/")
     public String welcome() {
         return "/login";
     }
@@ -55,13 +59,14 @@ public class IndexController {
      *
      * @return
      */
-    @GetMapping("/login")
-    public ModelAndView login(HttpServletRequest request) throws DecoderException {
+    @RequestMapping("/login")
+    public ModelAndView login(Map<String, Object> model, HttpServletRequest request) throws DecoderException {
+
         ModelAndView modelAndView = new ModelAndView("/login");
 
         HttpSession session = request.getSession();
         Object error = session.getAttribute(ERROR_MESSAGE_KEY);
-        if (ObjectUtils.isNotEmpty(error) ) {
+        if (ObjectUtils.isNotEmpty(error)) {
             modelAndView.addObject("message", error);
         }
         session.removeAttribute(ERROR_MESSAGE_KEY);
@@ -84,49 +89,41 @@ public class IndexController {
      * 确认授权页
      *
      * @param request
-     * @param session
      * @param model
      * @return
      */
     @RequestMapping("/oauth/confirm_access")
-    public String confirm_access(HttpServletRequest request, HttpSession session, Map<String, Object> model) {
-        Map<String, Object> scopeMap;
-        if (model.containsKey("scopes")) {
-            scopeMap = (Map<String, Object>) model.get("scopes");
-        } else {
-            scopeMap = (Map<String, Object>) request.getAttribute("scopes");
+    public ModelAndView confirmAccess(Map<String, Object> model, HttpServletRequest request) {
+
+        ModelAndView modelAndView = new ModelAndView("/confirm_access");
+
+        if (request.getAttribute("_csrf") != null) {
+            modelAndView.addObject("_csrf", request.getAttribute("_csrf"));
         }
 
-        List<String> scopeList = new ArrayList<>();
-        if (MapUtils.isNotEmpty(scopeMap)) {
-            scopeList.addAll(scopeMap.keySet());
-        }
+        AuthorizationRequest authorizationRequest = (AuthorizationRequest) model.get("authorizationRequest");
+        modelAndView.addObject("scopes", authorizationRequest.getScope());
 
-        model.put("scopeList", scopeList);
+        ClientDetails clientDetails = oauthClientDetailsService.getOauthClientDetails(authorizationRequest.getClientId());
+        modelAndView.addObject("app", clientDetails.getAdditionalInformation());
 
-        Object auth = session.getAttribute("authorizationRequest");
-        if (auth != null) {
-            AuthorizationRequest authorizationRequest = (AuthorizationRequest) auth;
-            // TODO 这里后面需要完善一下。Client Details 信息不够完整
-            ClientDetails clientDetails = oauthClientDetailsService.getOauthClientDetails(authorizationRequest.getClientId());
-            model.put("app", clientDetails.getAdditionalInformation());
-            model.put("user", SecurityUtils.getPrincipal());
-        }
-
-        System.out.println(JSON.toJSONString(model));
-
-        return "/confirm_access";
+        return modelAndView;
     }
 
     /**
      * 自定义oauth2错误页
+     *
      * @param request
      * @return
      */
     @RequestMapping("/oauth/error")
-    @ResponseBody
-    public Object handleError(HttpServletRequest request) {
+    public String handleError(Map<String, Object> model, HttpServletRequest request) {
         Object error = request.getAttribute("error");
-        return error;
+        if (error instanceof Exception) {
+            Exception exception = (Exception) error;
+            Result<String> result = SecurityGlobalExceptionHandler.resolveOauthException(exception, request.getRequestURI());
+            model.putAll(result.toModel());
+        }
+        return "/error";
     }
 }

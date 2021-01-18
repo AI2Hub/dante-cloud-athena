@@ -24,12 +24,22 @@
 
 package cn.herodotus.eurynome.athena.kernel.service;
 
+import cn.herodotus.eurynome.security.response.exception.VerificationCodeIsEmptyException;
+import cn.herodotus.eurynome.security.response.exception.VerificationCodeIsNotExistException;
+import cn.herodotus.eurynome.security.response.exception.VerificationCodeIsNotRightException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.authentication.AccountExpiredException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.CredentialsExpiredException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.web.authentication.ExceptionMappingAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,9 +56,10 @@ import java.util.Map;
  */
 @Slf4j
 @Component
-public class FormAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+public class FormLoginAuthenticationFailureHandler extends ExceptionMappingAuthenticationFailureHandler {
 
     public static final String ERROR_MESSAGE_KEY = "SPRING_SECURITY_LAST_EXCEPTION_CUSTOM_MESSAGE";
+    private static final String LOGIN_URL = "/login";
 
     private static Map<String, String> exceptionDictionary = new HashMap<>();
 
@@ -61,6 +72,20 @@ public class FormAuthenticationFailureHandler extends SimpleUrlAuthenticationFai
         exceptionDictionary.put("VerificationCodeIsEmptyException", "请输入验证码！");
         exceptionDictionary.put("VerificationCodeIsNotExistException", "验证码不存在！请刷新重试");
         exceptionDictionary.put("VerificationCodeIsNotRightException", "验证码输入错误！");
+    }
+
+    @PostConstruct
+    public void postConstruct() {
+        Map<String, String> exceptionMappings = new HashMap<>(8);
+        exceptionMappings.put(UsernameNotFoundException.class.getName(), LOGIN_URL);
+        exceptionMappings.put(DisabledException.class.getName(), LOGIN_URL);
+        exceptionMappings.put(AccountExpiredException.class.getName(), LOGIN_URL);
+        exceptionMappings.put(CredentialsExpiredException.class.getName(), LOGIN_URL);
+        exceptionMappings.put(BadCredentialsException.class.getName(), LOGIN_URL);
+        exceptionMappings.put(VerificationCodeIsEmptyException.class.getName(), LOGIN_URL);
+        exceptionMappings.put(VerificationCodeIsNotExistException.class.getName(), LOGIN_URL);
+        exceptionMappings.put(VerificationCodeIsNotRightException.class.getName(), LOGIN_URL);
+        this.setExceptionMappings(exceptionMappings);
     }
 
 

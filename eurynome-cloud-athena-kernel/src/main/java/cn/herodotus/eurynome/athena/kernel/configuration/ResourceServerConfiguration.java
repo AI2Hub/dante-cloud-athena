@@ -150,8 +150,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                         return fsi;
                     }
                 })
-                .and()
-                .cors()
+                .and().cors()
                 .and() // 认证鉴权错误处理,为了统一异常处理。每个资源服务器都应该加上。
                 .exceptionHandling()
                 .accessDeniedHandler(new HerodotusAccessDeniedHandler())

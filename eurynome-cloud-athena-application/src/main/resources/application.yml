@@ -15,6 +15,18 @@ spring:
       repositories:
         enabled: false
 
+herodotus:
+  platform:
+    security:
+      interceptor:
+        reject-public-invocations: true
+        white-list:
+          - /login
+      login:
+        username-parameter: guokylin
+        password-parameter: wangqinian
+        login-url: /login
+
 jasypt:
   encryptor:
     password: ${JASPYT_HOME:2bda7d3a-dba1-45a4-b08e-cbd731a0418e}
@@ -71,10 +83,10 @@ spring:
       # DDL mode. This is actually a shortcut for the "hibernate.hbm2ddl.auto" property. Default to "create-drop" when using an embedded database, "none" otherwise.spring.jpa.hibernate.ddl-auto=update
       ddl-auto: update
       naming:
-        physical-strategy: cn.herodotus.eurynome.data.jpa.hibernate.HerodotusPhysicalNamingStrategy
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
       hibernate:
-        dialect: cn.herodotus.eurynome.data.jpa.hibernate.postgresql.HerodotusPostgreSQLDialect
+        dialect: org.hibernate.dialect.PostgreSQL9Dialect
         format_sql: false
         show_sql: false
         generate_statistics: false
@@ -125,14 +137,17 @@ jetcache:
 
 logging:
   level:
+    root: INFO
     org:
-      springframework: INFO
+      springframework: DEBUG
     cn:
       herodotus:
-        eurynome: DEBUG
+        eurynome: INFO
     com:
       alicp:
         jetcache: INFO
+  file:
+    name: ./logs/eurynome-cloud-athena.log
 
 ---
 # 生产环境配置

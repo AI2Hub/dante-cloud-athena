@@ -42,6 +42,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.JdbcApprovalStore;
+import org.springframework.security.oauth2.provider.approval.TokenApprovalStore;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
@@ -52,6 +53,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import org.springframework.web.bind.support.SessionStatus;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 import java.security.Principal;
 import java.util.Arrays;
@@ -78,7 +80,7 @@ import java.util.Map;
  * [/oauth/authorize] {@link org.springframework.security.oauth2.provider.endpoint.AuthorizationEndpoint#authorize(Map, Map, SessionStatus, Principal)}
  * [/oauth/token] {@link org.springframework.security.oauth2.provider.endpoint.TokenEndpoint#getAccessToken(Principal, Map)}
  * [/oauth/check_token] {@link org.springframework.security.oauth2.provider.endpoint.CheckTokenEndpoint#checkToken(String)}
- * [/oauth/confirm_access]
+ * [/oauth/confirm_access] {@link org.springframework.security.oauth2.provider.endpoint.WhitelabelApprovalEndpoint#getAccessConfirmation(Map, HttpServletRequest)}
  * [/oauth/token_key]
  * [/oauth/error]
  * <p>
@@ -221,7 +223,9 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
      */
     @Bean
     public ApprovalStore createApprovalStore() {
-        return new JdbcApprovalStore(dataSource);
+        TokenApprovalStore tokenApprovalStore = new TokenApprovalStore();
+        tokenApprovalStore.setTokenStore(createTokenStore());
+        return tokenApprovalStore;
     }
 
     /**
