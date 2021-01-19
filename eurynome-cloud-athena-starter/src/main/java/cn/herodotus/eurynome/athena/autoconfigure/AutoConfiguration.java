@@ -24,12 +24,14 @@
 
 package cn.herodotus.eurynome.athena.autoconfigure;
 
-import cn.herodotus.eurynome.athena.kernel.annotation.EnableAthenaKernel;
-import cn.herodotus.eurynome.crud.annotation.EnableHerodotusCrud;
-import cn.herodotus.eurynome.security.annotation.EnableHerodotusSecurity;
-import cn.herodotus.eurynome.upms.logic.annotation.EnableUpmsLogic;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import javax.annotation.PostConstruct;
 
@@ -44,14 +46,28 @@ import javax.annotation.PostConstruct;
  */
 @Slf4j
 @Configuration
-@EnableHerodotusCrud
-@EnableHerodotusSecurity
-@EnableUpmsLogic
-@EnableAthenaKernel
 public class AutoConfiguration {
 
     @PostConstruct
     public void postConstruct() {
         log.info("[Eurynome] |- Starter [Athena Starter] Auto Configure.");
+    }
+
+    @Bean
+    @Order(Ordered.HIGHEST_PRECEDENCE)
+    public CorsFilter corsFilter() {
+
+        log.debug("[Eurynome] |- Bean [Cors Filter] Auto Configure.");
+
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.addAllowedOrigin("*");
+        corsConfiguration.addAllowedMethod("*");
+        corsConfiguration.addAllowedHeader("*");
+
+        UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
+        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
+
+        return new CorsFilter(urlBasedCorsConfigurationSource);
     }
 }

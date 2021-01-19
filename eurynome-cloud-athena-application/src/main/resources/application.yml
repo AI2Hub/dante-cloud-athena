@@ -142,7 +142,7 @@ logging:
       springframework: DEBUG
     cn:
       herodotus:
-        eurynome: INFO
+        eurynome: DEBUG
     com:
       alicp:
         jetcache: INFO

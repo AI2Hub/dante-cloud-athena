@@ -18,24 +18,14 @@
  * Module Name: eurynome-cloud-athena-kernel
  * File Name: AthenaKernelConfiguration.java
  * Author: gengwei.zheng
- * Date: 2021/1/6 下午12:00
- * LastModified: 2021/1/6 下午12:00
+ * Date: 2021/1/18 上午10:49
+ * LastModified: 2021/1/18 上午10:49
  */
 
 package cn.herodotus.eurynome.athena.kernel.configuration;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
-
-import javax.annotation.PostConstruct;
 
 /**
  * <p>Project: eurynome-cloud-athena </p>
@@ -44,37 +34,11 @@ import javax.annotation.PostConstruct;
  * <p>Description: TODO </p>
  *
  * @author : gengwei.zheng
- * @date : 2021/1/6 12:00
+ * @date : 2021/1/18 10:49
  */
 @Slf4j
 @Configuration
-@ComponentScan(basePackages = {
-        "cn.herodotus.eurynome.athena.kernel.configuration",
-        "cn.herodotus.eurynome.athena.kernel.service",
-        "cn.herodotus.eurynome.athena.kernel.controller"
-})
 public class AthenaKernelConfiguration {
 
-    @PostConstruct
-    public void postConstruct() {
-        log.info("[Eurynome] |- Components [Athena Kernel] Auto Configure.");
-    }
 
-    @Bean
-    @Order(Ordered.HIGHEST_PRECEDENCE)
-    public CorsFilter corsFilter() {
-
-        log.debug("[Eurynome] |- Bean [Cors Filter] Auto Configure.");
-
-        CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.setAllowCredentials(true);
-        corsConfiguration.addAllowedOrigin("*");
-        corsConfiguration.addAllowedMethod("*");
-        corsConfiguration.addAllowedHeader("*");
-
-        UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
-        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
-
-        return new CorsFilter(urlBasedCorsConfigurationSource);
-    }
 }

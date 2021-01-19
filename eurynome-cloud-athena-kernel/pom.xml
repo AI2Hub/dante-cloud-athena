@@ -42,6 +42,14 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>eurynome-cloud-oauth-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-ui</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
