@@ -43,6 +43,10 @@
             <artifactId>eurynome-cloud-oauth-starter</artifactId>
         </dependency>
         <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>eurynome-cloud-upms-rest</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
         </dependency>

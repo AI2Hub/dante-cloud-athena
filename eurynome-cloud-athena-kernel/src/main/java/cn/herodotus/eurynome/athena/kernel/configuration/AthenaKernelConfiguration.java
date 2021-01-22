@@ -24,8 +24,11 @@
 
 package cn.herodotus.eurynome.athena.kernel.configuration;
 
+import cn.herodotus.eurynome.upms.rest.annotation.EnableUpmsRest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
+
+import javax.annotation.PostConstruct;
 
 /**
  * <p>Project: eurynome-cloud-athena </p>
@@ -38,7 +41,13 @@ import org.springframework.context.annotation.Configuration;
  */
 @Slf4j
 @Configuration
+@EnableUpmsRest
 public class AthenaKernelConfiguration {
+
+    @PostConstruct
+    public void postConstruct() {
+        log.info("[Eurynome] |- Components [Athena Kernel] Auto Configure.");
+    }
 
 
 }

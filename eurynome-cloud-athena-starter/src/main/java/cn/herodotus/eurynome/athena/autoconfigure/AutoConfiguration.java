@@ -24,9 +24,11 @@
 
 package cn.herodotus.eurynome.athena.autoconfigure;
 
+import cn.herodotus.eurynome.athena.kernel.configuration.AthenaKernelConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.cors.CorsConfiguration;
@@ -46,6 +48,7 @@ import javax.annotation.PostConstruct;
  */
 @Slf4j
 @Configuration
+@Import(AthenaKernelConfiguration.class)
 public class AutoConfiguration {
 
     @PostConstruct
