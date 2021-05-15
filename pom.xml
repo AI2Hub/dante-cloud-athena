@@ -1,12 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2019-2021 Gengwei Zheng(herodotus@aliyun.com)
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  ~ Project Name: eurynome-cloud-athena
+  ~ Module Name: eurynome-cloud-athena
+  ~ File Name: pom.xml
+  ~ Author: gengwei.zheng
+  ~ Date: 2021/05/15 08:15:15
+  -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>eurynome-cloud-athena</artifactId>
-    <packaging>pom</packaging>
-    <version>1.0.0</version>
 
     <name>eurynome-cloud-athena</name>
     <description>基于Spring Security和Vue重新做一版单体式系统的脚手架。同时，尽量使用eurynome-cloud通用代码。</description>
@@ -14,8 +32,13 @@
     <parent>
         <groupId>cn.herodotus.eurynome</groupId>
         <artifactId>dependencies</artifactId>
-        <version>1.0.1</version>
+        <version>2.4.5.48</version>
     </parent>
+
+    <artifactId>eurynome-cloud-athena</artifactId>
+    <version>2.4.5.48</version>
+    <packaging>pom</packaging>
+
 
     <properties>
         <java.version>1.8</java.version>
@@ -24,6 +47,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <eurynome.cloud.version>2.4.5.48</eurynome.cloud.version>
     </properties>
 
     <!-- 所有的子项目默认依赖 -->
@@ -37,12 +61,6 @@
     <!-- 管理依赖版本号,子项目不会默认依赖 -->
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>eurynome-cloud-crud</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>eurynome-cloud-athena-kernel</artifactId>
@@ -62,6 +80,22 @@
         <module>eurynome-cloud-athena-application</module>
         <module>eurynome-cloud-athena-starter</module>
     </modules>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>${maven-antrun-plugin.version}</version>
+                <configuration>
+                    <target>
+                        <echo>${project.version}</echo>
+                        <echo>${project.parent.version}</echo>
+                    </target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <!-- 环境 -->
     <profiles>

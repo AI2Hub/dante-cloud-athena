@@ -14,31 +14,38 @@
  * limitations under the License.
  *
  * Project Name: eurynome-cloud-athena
- * Module Name: eurynome-cloud-athena-application
- * File Name: AthenaApplication.java
+ * Module Name: eurynome-cloud-athena-kernel
+ * File Name: AthenaKernelConfiguration.java
  * Author: gengwei.zheng
- * Date: 2020/12/30 09:00:30
+ * Date: 2021/01/21 13:15:21
  */
 
-package cn.herodotus.eurynome.athena;
+package cn.herodotus.eurynome.athena.kernel.configuration;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import cn.herodotus.eurynome.upms.rest.annotation.EnableUpmsRest;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Configuration;
+
+import javax.annotation.PostConstruct;
 
 /**
  * <p>Project: eurynome-cloud-athena </p>
- * <p>File: AthenaApplication.java </p>
+ * <p>File: AthenaKernelConfiguration </p>
  *
- * <p>Description: 应用启动文件 </p>
+ * <p>Description: TODO </p>
  *
  * @author : gengwei.zheng
- * @date : 2020/12/29 20:52
+ * @date : 2021/1/18 10:49
  */
-@SpringBootApplication
-public class AthenaApplication {
+@Slf4j
+@Configuration
+@EnableUpmsRest
+public class AthenaKernelConfiguration {
 
-    public static void main(String[] args) {
-        SpringApplication.run(AthenaApplication.class, args);
+    @PostConstruct
+    public void postConstruct() {
+        log.info("[Eurynome] |- Components [Athena Kernel] Auto Configure.");
     }
+
 
 }
