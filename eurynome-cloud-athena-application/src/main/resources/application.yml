@@ -84,7 +84,7 @@ spring:
     open-in-view: true
     hibernate:
       # DDL mode. This is actually a shortcut for the "hibernate.hbm2ddl.auto" property. Default to "create-drop" when using an embedded database, "none" otherwise.spring.jpa.hibernate.ddl-auto=update
-      ddl-auto: update
+      ddl-auto: none
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
@@ -150,7 +150,7 @@ logging:
       alicp:
         jetcache: INFO
   file:
-    name: ./logs/eurynome-cloud-athena.log
+    name: ../logs/eurynome-cloud-athena.log
 
 ---
 # 生产环境配置
