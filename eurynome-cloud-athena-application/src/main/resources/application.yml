@@ -34,24 +34,29 @@ jasypt:
 ---
 # 开发环境配置
 spring:
-  profiles: develpment
+  config:
+    activate:
+      on-profile: develpment
+  sql:
+    init:
+      mode: never
+      platform: postgresql
+      continue-on-error: true
+      encoding: UTF-8
+      username: ${spring.datasource.username}
+      password: ${spring.datasource.password}
+      # 第一种方式启动的时候 Jpa 会自动创建表，import.sql 只负责创建表单后的初始化数据。第二种方式启动的时候不会创建表，需要在初始化脚本中判断表是否存在，再初始化脚本的步骤
+      # refer: https://www.cnblogs.com/ityouknow/p/7089170.html
+      data-locations:
+        - classpath*:sqls/oauth2-data-postgresql.sql
+        - classpath*:sqls/upms-data-postgresql.sql
+      schema-locations:
+        - classpath*:sqls/oauth2-schema-postgresql.sql
   datasource:
-    continue-on-error: true
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
     url: jdbc:p6spy:postgresql://localhost:15432/athena
     username: athena
     password: athena
-    initialization-mode: always
-    data-username: ${spring.datasource.username}
-    data-password: ${spring.datasource.password}
-    schema-username: ${spring.datasource.username}
-    schema-password: ${spring.datasource.password}
-    schema:
-      - classpath*:sqls/oauth2-schema-postgresql.sql
-    data:
-      - classpath*:sqls/oauth2-data-postgresql.sql
-      - classpath*:sqls/upms-data-postgresql.sql
-    sql-script-encoding: UTF-8
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
       # Lowest acceptable connection timeout is 250 ms. Default: 30000 (30 seconds)
@@ -88,11 +93,23 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
+      javax:
+        persistence:
+          sharedCache:
+            mode: ENABLE_SELECTIVE
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQL9Dialect
-        format_sql: false
-        show_sql: false
-        generate_statistics: false
+        dialect: org.hibernate.dialect.PostgreSQL10Dialect
+        format_sql: true
+        show_sql: true
+        generate_statistics: true
+        cache:
+          use_query_cache: true
+          use_second_level_cache: true
+          region:
+            factory_class: cn.herodotus.eurynome.data.jpa.hibernate.cache.spi.HerodotusRegionFactory
+        javax:
+          cache:
+            missing_cache_strategy: create
         temp:
           use_jdbc_metadata_defaults: false
   redis:
@@ -155,4 +172,6 @@ logging:
 ---
 # 生产环境配置
 spring:
-  profiles: production
+  config:
+    activate:
+      on-profile: production
