@@ -1,51 +1,4 @@
-<p align="center"><img src="./documents/readme/logo.jpg" height="200" alt="logo"/></p>
-<h2 align="center">简洁优雅 · 稳定高效 | 宁静致远 · 精益求精 </h2>
-<h3 align="center">Eurynome Cloud 微服务架构</h3>
-
----
-
-<p align="center">
-    <a href="https://www.oracle.com/java/technologies/javase-downloads.html" target="_blank"><img src="https://img.shields.io/badge/JDK-1.8%2B-green" alt="JDK 1.8+"></a>
-    <a href="https://spring.io/projects/spring-boot" target="_blank"><img src="https://img.shields.io/badge/Spring%20Boot-2.5.3-blue" alt="Spring Boot 2.5.3"></a>
-    <a href="https://spring.io/projects/spring-cloud" target="_blank"><img src="https://img.shields.io/badge/Spring%20Cloud-2020.0.3-blue" alt="Spring Cloud 2020.0.3"></a>
-    <a href="https://github.com/alibaba/spring-cloud-alibaba" target="_blank"><img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2021.1-blue" alt="Spring Cloud Alibaba 2021.1"></a>
-    <a href="https://nacos.io/zh-cn/index.html" target="_blank"><img src="https://img.shields.io/badge/Nacos-2.0.3-brightgreen" alt="Nacos 2.0.3"></a>
-    <a href="./LICENSE"><img src="https://img.shields.io/badge/License-Apache--2.0-blue" alt="License Apache 2.0"></a>
-    <a href="https://blog.csdn.net/Pointer_v" target="_blank"><img src="https://img.shields.io/badge/Author-%E7%A0%81%E5%8C%A0%E5%90%9B-orange" alt="码匠君"></a>
-    <a href="#" target="_blank"><img src="https://img.shields.io/badge/Version-2.5.4.50-red" alt="Version 2.5.4.50"></a>
-    <a href="https://gitee.com/herodotus/eurynome-cloud"><img src="https://gitee.com/herodotus/eurynome-cloud/badge/star.svg?theme=dark" alt="Gitee star"></a>
-    <a href="https://gitee.com/herodotus/eurynome-cloud"><img src="https://gitee.com/herodotus/eurynome-cloud/badge/fork.svg?theme=dark" alt="Gitee fork"></a>
-</p>
-
-<p align="center">
-    <a href="https://github.com/herodotus-cloud/eurynome-cloud">Github 仓库</a> &nbsp; | &nbsp; 
-    <a href="https://gitee.com/herodotus/eurynome-cloud">Gitee 仓库</a>
-</p>
-
-
-<h1 align="center"> 如果您觉得有帮助，请点右上角 "Star" 支持一下，谢谢！</h1>
-<h3 align="center"> 本工程为Eurynome Cloud 单体版！</h3>
-
----
-## 企业级技术中台微服务架构与服务能力开发平台
-
-Eurynome Cloud是一款企业级微服务架构和服务能力开发平台。基于Spring Boot 2.5.3、Spring Cloud 2020.0.3、Spring Cloud Alibaba 2021.1、Nacos 2.0.3 等最新版本开发，遵循SpringBoot编程思想，高度模块化和可配置化。具备服务发现、配置、熔断、限流、降级、监控、多级缓存、分布式事务、工作流等功能，代码简洁，架构清晰，非常适合学习和企业作为基础框架使用。
-
-## [1]、总体架构
-
-![输入图片说明](./documents/readme/architecture.jpg)
-
-> 部分功能演示，正在逐步添加
-
-### （1） 方法级动态权限
-
-![输入图片说明](./documents/readme/preview/oauth2expression.gif)
-
-### （2） 服务调用链监控
-
-![输入图片说明](./documents/readme/preview/skywalking.gif)
-
-## [2]、功能介绍
+## Eurynome Cloud 详细功能说明
 
 ### 统一安全认证中心
 
@@ -56,12 +9,13 @@ Eurynome Cloud是一款企业级微服务架构和服务能力开发平台。基
 | 自定义OAuth2页面         | 自定义OAuth2 login、confirm、error页面，提升系统使用用户体验。可结合自身需求进行修改。 |
 | OAuth2 登录验证码        | OAuth2登录增加验证码保护，支持gif、中文、算数等类型，可通过配置进行修改以及是否显示验证码控制 |
 | OAuth2登录数据加密传输   | 基于AES对OAuth2登录数据进行动态加密传输，可通过配置对表单参数名进行动态配置，提升系统安全性 |
-| 平台权限管理             | 基于RBAC模型，以角色和接口为核心，使用统一逻辑实现@PreAuthorize注解权限与URL权限的全面整合及动态可配置化。统一平台接口白名单，IP地址白名单，以及Scope绑定URL的管理。无须配置Security权限注解，支持URL粒度的鉴权和用户权限的动态配置。 完美支持单体式架构、UPMS自身应用需求、分布式架构以及分布式各服务多实例等各种应用场景。完美支持单体式架构、UPMS自身应用需求、分布式架构以及分布式各服务多实例等各种应用场景。             |
+| 平台权限管理             | 基于RBAC模型，以角色和接口为核心，使用统一逻辑实现@PreAuthorize注解权限的全面动态可配置化。统一平台接口白名单，IP地址白名单，以及Scope绑定URL的管理。无须配置Security权限注解，支持URL粒度的鉴权和用户权限的动态配置。 完美支持单体式架构、UPMS自身应用需求、分布式架构以及分布式各服务多实例等各种应用场景。完美支持单体式架构、UPMS自身应用需求、分布式架构以及分布式各服务多实例等各种应用场景。             |
 | User、Client数据策略访问 | 支持OAuth2 UserDetails、ClientDetails数据直连数据库和Feign两种数据获取策略模式，OAuth2直连数据库性能更优，Feign访问数据服务独立可动态扩展。可通过配置动态修改具体采用哪种策略 |
 | 手机短信验证码注册和登录 | 支持通过手机验证码登录认证，与平台为统一体系，统一返回OAuth2 Token，支持服务接口鉴权。 |
 | 第三方系统社交注册和登录 | 基于JustAuth实现第三方系统社交登录认证，，与平台为统一体系，统一返回OAuth2 Token，支持服务接口鉴权，。所有JustAuth支持的第三方系统均支持。 |
 | 微信小程序注册和登录     | 支持微信小程序登录认证，与平台为统一体系，统一返回OAuth2 Token，支持服务接口鉴权。 |
 | 其它注册和登录           | 采用策略模式对外部登录和注册进行支持，目前未支持的登录，可参考标准，动态扩展，即可支持。 |
+
 
 ### 统一服务访问网关
 
@@ -140,121 +94,4 @@ Eurynome Cloud是一款企业级微服务架构和服务能力开发平台。基
 | 百度证照识别       | 集成百度证照审核，支持营业执照、身份证OCR识别。通过@EnableXXX注解开启或关闭。 |
 | 天眼查企业信息查询 | 集成天眼查企业信息查询。通过@EnableXXX注解开启或关闭。       |
 
-## [3]、技术栈和版本说明
 
-### （1）Spring全家桶及核心技术版本
-
-组件 | 版本
----|---
-Spring Boot | 2.5.3
-Spring Cloud | 2020.0.3
-Spring Cloud Alibaba | 2021.1
-Spring Boot Admin | 2.4.2
-Nacos | 2.0.3 |
-Sentinel | 1.8.0 |
-Seata | 1.3.0 |
-
-> Spring 全家桶版本对应关系，详见：[版本说明](https://github.com/alibaba/spring-cloud-alibaba/wiki/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E)
-
-### （2）所涉及的相关的技术：
-
-* JSON序列化：Jackson & FastJson
-* 消息队列：Kafka 适配RabbitMQ，支持消息总线(Spring Cloud Bus)
-* 数据缓存：JetCache + Redis + Caffeine
-* 数据库： Postgresql，MySQL，Oracle ...
-* 前端实现：Vue + Vuetify
-* 持久层框架： Spring Data Jpa & Mybatis
-* API网关：Gateway
-* 服务注册&发现和配置中心: Nacos
-* 服务消费：OpenFeign & RestTemplate & OkHttp3
-* 负载均衡：Spring Cloud Loadbalancer
-* 服务熔断&降级&限流：Sentinel
-* 分布式事务：Seata
-* 服务监控：Spring Boot Admin
-* 链路跟踪：Skywalking
-* 文件服务：阿里云OSS/Minio
-* 数据调试：p6spy
-* 日志中心：ELK
-* 日志收集：Logstash Logback Encoder
-
-## [4]、 版本号说明
-
-本系统版本号，分为四段。
-
-- 第一段和第二段，与Spring Boot 版本对应，根据采用的Spring Boot版本变更。例如，当前采用Spring Boot 2.4.6版本，那么就以2.4.X.X开头
-- 第三段，表示系统功能的变化
-- 第四段，表示系统功能维护及优化情况
-
-## [5]、工程结构
-
-``` 
-eurynome-cloud
-├── configurations -- 配置文件脚本和统一Docker build上下文目录
-├── dependencies -- 工程Maven顶级依赖，统一控制版本和依赖
-├── documents -- 工程相关文档
-├── packages -- 基础通用依赖包
-├    ├── eurynome-cloud-common -- 公共工具类
-├    ├── eurynome-cloud-data -- 数据持久化、数据缓存以及Redis等数据处理相关代码组件
-├    ├── eurynome-cloud-rest -- Rest相关代码组件
-├    ├── eurynome-cloud-crud -- CRUD相关代码组件
-├    ├── eurynome-cloud-sercurity -- Security通用代码
-├    ├── eurynome-cloud-oauth -- OAuth2通用代码
-├    ├── eurynome-cloud-message -- 消息队列、BUG相关代码组件
-├    ├── eurynome-cloud-kernel -- 微服务接入平台必备组件
-├    ├── eurynome-cloud-oauth-starter -- 自定义OAuth2 Starter
-├    └── eurynome-cloud-starter -- 微服务核心Starter
-├── platform -- 平台核心服务
-├    ├── eurynome-cloud-gateway -- 服务网关
-├    ├── eurynome-cloud-management -- Spring Boot Admin 监控服务
-├    └── eurynome-cloud-uaa -- 统一认证模块
-├── services -- 平台业务服务
-├    ├── eurynome-cloud-upms-api -- 通用用户权限api 
-├    ├── eurynome-cloud-upms-logic -- 通用用户权限service
-├    ├── eurynome-cloud-upms-rest -- 通用用户权限rest 接口
-├    ├── eurynome-cloud-upms-ability -- 通用用户权限服务
-└──  └── eurynome-cloud-bpmn-ability -- 工作流服务 
-```
-
-## [6]、项目地址
-* 后端Gitee地址：[https://gitee.com/herodotus/eurynome-cloud](https://gitee.com/herodotus/eurynome-cloud)
-* 后端Github地址：[https://github.com/herodotus-cloud/eurynome-cloud](https://github.com/herodotus-cloud/eurynome-cloud)
-* 单体版示例工程：[https://gitee.com/herodotus/eurynome-cloud-athena](https://gitee.com/herodotus/eurynome-cloud-athena)
-* 前端Gitee地址：[https://gitee.com/herodotus/eurynome-cloud-ui](https://gitee.com/herodotus/eurynome-cloud-ui)
-
-## [7]、用户权益
-* 允许免费用于学习、毕设、公司项目、私活等。
-* 遵循Apache-2.0开源协议
-
-## [8]、交流反馈
-* 欢迎提交[ISSUS](https://gitee.com/herodotus/eurynome-cloud/issues) ，请写清楚问题的具体原因，重现步骤和环境(上下文)
-* 博客：https://blog.csdn.net/Pointer_v
-* 邮箱：herodotus@aliyun.com
-* QQ群：922565573
-
-## [9]、界面预览
-<table>
-    <tr>
-        <td><img src="./documents/readme/ui1.png"/></td>
-        <td><img src="./documents/readme/ui2.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="./documents/readme/ui3.png"/></td>
-        <td><img src="./documents/readme/camunda.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="./documents/readme/nacos.png"/></td>
-        <td><img src="./documents/readme/elk.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="./documents/readme/oauth2-login1.png"/></td>
-        <td><img src="./documents/readme/sentinel.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="./documents/readme/spring-boot-admin-1.png"/></td>
-        <td><img src="./documents/readme/spring-boot-admin-2.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="./documents/readme/skywalking.png"/></td>
-        <td><img src="./documents/readme/skywalking2.png"/></td>
-    </tr>
-</table>
