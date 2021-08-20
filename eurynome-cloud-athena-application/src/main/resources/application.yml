@@ -14,9 +14,13 @@ spring:
     redis:
       repositories:
         enabled: false
+  cloud:
+    bus:
+      enabled: false
 
 herodotus:
   platform:
+    architecture: monocoque
     security:
       interceptor:
         reject-public-invocations: true
@@ -156,16 +160,20 @@ jetcache:
 logging:
   level:
     root: INFO
-    org:
-      springframework: INFO
-    cn:
-      herodotus:
-        eurynome: DEBUG
-    com:
-      alicp:
-        jetcache: INFO
+    org.springframework: INFO
+    cn.herodotus.eurynome: DEBUG
+    com.alicp.jetcache: INFO
   file:
     name: ../logs/eurynome-cloud-athena.log
+
+herodotus:
+  platform:
+    swagger:
+      # Swagger中不知道哪里包含Kafka的注解，会自动启动，如果不连接到Kafka会导致启动失败。暂时没有解决，先取消掉。
+      enabled: false
+    cache:
+      clear-remote-on-exit: true
+
 
 ---
 # 生产环境配置
