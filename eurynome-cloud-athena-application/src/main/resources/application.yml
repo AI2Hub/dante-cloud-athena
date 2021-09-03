@@ -18,12 +18,19 @@ spring:
     bus:
       enabled: false
 
+camunda:
+  bpm:
+    database:
+      type: postgres
+      schema-update: true
+    jpa:
+      enabled: true
+
 herodotus:
   platform:
     architecture: monocoque
     security:
       interceptor:
-        reject-public-invocations: true
         white-list:
           - /login
       login:
@@ -101,7 +108,7 @@ spring:
           sharedCache:
             mode: ENABLE_SELECTIVE
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQL10Dialect
+        dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: false
         show_sql: false
         generate_statistics: false
@@ -118,7 +125,7 @@ spring:
   redis:
     database: 0
     host: 192.168.101.10
-    #    password: ${herodotus.environment.redis-password}
+    password:
     port: 6379
     timeout: 10000
     # 如果使用的jedis 则将lettuce改成jedis即可
@@ -156,7 +163,7 @@ jetcache:
         maxTotal: ${spring.redis.lettuce.pool.max-active}
         maxWait: ${spring.redis.lettuce.pool.max-wait}
       uri:
-        - redis://${spring.redis.host}:${spring.redis.port}/${spring.redis.database}
+        - redis://${spring.redis.password}@${spring.redis.host}:${spring.redis.port}/${spring.redis.database}
 
 logging:
   level:
@@ -166,7 +173,7 @@ logging:
     cn.herodotus.eurynome: DEBUG
     com.alicp.jetcache: INFO
   file:
-    name: ../logs/eurynome-cloud-athena.log
+    name: logs/eurynome-cloud-athena.log
 
 herodotus:
   platform:
