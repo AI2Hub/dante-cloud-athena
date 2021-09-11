@@ -165,6 +165,18 @@ jetcache:
       uri:
         - redis://${spring.redis.password}@${spring.redis.host}:${spring.redis.port}/${spring.redis.database}
 
+springdoc:
+  api-docs:
+    resolve-schema-properties: true
+  swagger-ui:
+    disable-swagger-default-url: true
+    operations-sorter: method
+    show-common-extensions: true
+    show-extensions: true
+    oauth:
+      use-pkce-with-authorization-code-grant: true
+      app-name: ${spring.application.name}
+
 logging:
   level:
     root: INFO
