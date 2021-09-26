@@ -23,17 +23,24 @@
 package cn.herodotus.eurynome.athena.autoconfigure;
 
 import cn.herodotus.eurynome.athena.kernel.configuration.AthenaKernelConfiguration;
+import cn.herodotus.eurynome.common.constant.magic.SymbolConstants;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsProcessor;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * <p>Project: eurynome-cloud-athena </p>
@@ -46,8 +53,10 @@ import javax.annotation.PostConstruct;
  */
 @Slf4j
 @Configuration
-@Import(AthenaKernelConfiguration.class)
+@Import({AthenaKernelConfiguration.class, CorsConfiguration.class})
 public class AutoConfiguration {
+
+    private static final String[] ACCESS_CONTROL_ALLOW_METHODS = new String[]{HttpMethod.GET.name(), HttpMethod.POST.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name(), HttpMethod.OPTIONS.name()};
 
     @PostConstruct
     public void postConstruct() {
@@ -63,11 +72,19 @@ public class AutoConfiguration {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.setAllowCredentials(true);
         corsConfiguration.addAllowedOriginPattern("*");
-        corsConfiguration.addAllowedMethod("*");
-        corsConfiguration.addAllowedHeader("*");
+        corsConfiguration.addAllowedMethod(StringUtils.join(ACCESS_CONTROL_ALLOW_METHODS, SymbolConstants.COMMA));
+        corsConfiguration.addAllowedHeader("x-requested-with, authorization, Content-Type, Authorization, credential, X-XSRF-TOKEN");
 
         UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
         urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
+
+        CorsFilter corsFilter = new CorsFilter(urlBasedCorsConfigurationSource);
+        corsFilter.setCorsProcessor((configuration, request, response) -> {
+            if (HttpMethod.OPTIONS.name().equalsIgnoreCase(request.getMethod())) {
+                response.setStatus(HttpServletResponse.SC_OK);
+            }
+            return true;
+        });
 
         return new CorsFilter(urlBasedCorsConfigurationSource);
     }
