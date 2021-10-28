@@ -1,4 +1,4 @@
-<p align="center"><img src="./readme/logo.png" height="150" width="150" alt="logo"/></p>
+<p align="center"><img src="./documents/readme/logo.png" height="150" width="150" alt="logo"/></p>
 <h2 align="center">简洁优雅 · 稳定高效 | 宁静致远 · 精益求精 </h2>
 <h3 align="center">Eurynome Cloud 微服务架构</h3>
 
@@ -44,17 +44,17 @@ Eurynome Cloud是一款企业级微服务架构和服务能力开发平台。基
 
 ## [1]、总体架构
 
-![输入图片说明](./readme/architecture.jpg)
+![输入图片说明](./documents/readme/architecture.jpg)
 
 > 部分功能演示，正在逐步添加
 
 ### （1） 方法级动态权限
 
-![输入图片说明](./readme/preview/oauth2expression.gif)
+![输入图片说明](./documents/readme/preview/oauth2expression.gif)
 
 ### （2） 服务调用链监控
 
-![输入图片说明](./readme/preview/skywalking.gif)
+![输入图片说明](./documents/readme/preview/skywalking.gif)
 
 ## [2]、功能介绍
 
@@ -157,27 +157,27 @@ eurynome-cloud
 
 <table>
     <tr>
-        <td><img src="./readme/ui1.png" alt="前端界面1"/></td>
-        <td><img src="./readme/ui2.png" alt="前端界面2"/></td>
+        <td><img src="./documents/readme/ui1.png" alt="前端界面1"/></td>
+        <td><img src="./documents/readme/ui2.png" alt="前端界面2"/></td>
     </tr>
     <tr>
-        <td><img src="./readme/ui3.png" alt="前端界面3"/></td>
-        <td><img src="./readme/camunda.png" alt="Camunda 工作流在线编辑器"/></td>
+        <td><img src="./documents/readme/ui3.png" alt="前端界面3"/></td>
+        <td><img src="./documents/readme/camunda.png" alt="Camunda 工作流在线编辑器"/></td>
     </tr>
     <tr>
-        <td><img src="./readme/nacos.png" alt="Nacos示例界面"/></td>
-        <td><img src="./readme/elk.png" alt="日志中心示例界面"/></td>
+        <td><img src="./documents/readme/nacos.png" alt="Nacos示例界面"/></td>
+        <td><img src="./documents/readme/elk.png" alt="日志中心示例界面"/></td>
     </tr>
     <tr>
-        <td><img src="./readme/oauth2-login1.png" alt="OAuth2 效果示例"/></td>
-        <td><img src="./readme/sentinel.png" alt="Sentinel 效果示例"/></td>
+        <td><img src="./documents/readme/oauth2-login1.png" alt="OAuth2 效果示例"/></td>
+        <td><img src="./documents/readme/sentinel.png" alt="Sentinel 效果示例"/></td>
     </tr>
     <tr>
-        <td><img src="./readme/spring-boot-admin-1.png" alt="Spring Boot Admin 效果示例1"/></td>
-        <td><img src="./readme/spring-boot-admin-2.png" alt="Spring Boot Admin 效果示例2"/></td>
+        <td><img src="./documents/readme/spring-boot-admin-1.png" alt="Spring Boot Admin 效果示例1"/></td>
+        <td><img src="./documents/readme/spring-boot-admin-2.png" alt="Spring Boot Admin 效果示例2"/></td>
     </tr>
     <tr>
-        <td><img src="./readme/skywalking.png" alt="Skywalking 效果示例1"/></td>
-        <td><img src="./readme/skywalking2.png" alt="Skywalking 效果示例2"/></td>
+        <td><img src="./documents/readme/skywalking.png" alt="Skywalking 效果示例1"/></td>
+        <td><img src="./documents/readme/skywalking2.png" alt="Skywalking 效果示例2"/></td>
     </tr>
 </table>
