@@ -25,6 +25,8 @@ camunda:
       schema-update: true
     jpa:
       enabled: true
+    job-execution:
+      enabled: false
 
 herodotus:
   platform:
@@ -42,6 +44,7 @@ jasypt:
   encryptor:
     password: ${JASPYT_HOME:2bda7d3a-dba1-45a4-b08e-cbd731a0418e}
 
+
 ---
 # 开发环境配置
 spring:
@@ -50,7 +53,7 @@ spring:
       on-profile: develpment
   sql:
     init:
-      mode: always
+      mode: never
       platform: postgresql
       continue-on-error: false
       encoding: UTF-8
@@ -141,6 +144,7 @@ spring:
     cache: false
     prefix: classpath:/templates
 
+
 jetcache:
   statIntervalMinutes: 15
   areaInCacheName: false
@@ -162,6 +166,15 @@ jetcache:
         maxWait: ${spring.redis.lettuce.pool.max-wait}
       uri:
         - redis://${spring.redis.password}@${spring.redis.host}:${spring.redis.port}/${spring.redis.database}
+
+herodotus:
+  platform:
+    swagger:
+      # Swagger中不知道哪里包含Kafka的注解，会自动启动，如果不连接到Kafka会导致启动失败。暂时没有解决，先取消掉。
+      enabled: false
+    cache:
+      clear-remote-on-exit: true
+
 
 springdoc:
   api-docs:
@@ -185,15 +198,6 @@ logging:
     com.alicp.jetcache: INFO
   file:
     name: logs/eurynome-cloud-athena.log
-
-herodotus:
-  platform:
-    swagger:
-      # Swagger中不知道哪里包含Kafka的注解，会自动启动，如果不连接到Kafka会导致启动失败。暂时没有解决，先取消掉。
-      enabled: false
-    cache:
-      clear-remote-on-exit: true
-
 
 ---
 # 生产环境配置
