@@ -127,7 +127,7 @@ spring:
     database: 3
     host: 192.168.101.10
     password:
-    port: 6379
+    port: 16379
     timeout: 10000
     # 如果使用的jedis 则将lettuce改成jedis即可
     lettuce:
