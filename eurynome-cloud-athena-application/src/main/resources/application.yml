@@ -22,7 +22,7 @@ camunda:
   bpm:
     database:
       type: postgres
-      schema-update: true
+      schema-update: false
     jpa:
       enabled: true
     job-execution:
