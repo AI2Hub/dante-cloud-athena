@@ -133,6 +133,7 @@ eurynome-cloud
 ├    ├── eurynome-cloud-message -- 消息处理相关代码组件
 ├    ├── eurynome-cloud-oauth -- OAuth2通用代码
 ├    ├── eurynome-cloud-oauth-starter -- 自定义OAuth2 Starter，Athena单体版核心Starter
+├    ├── eurynome-cloud-pay -- 支付核心模块
 ├    ├── eurynome-cloud-rest -- Rest相关代码组件
 ├    ├── eurynome-cloud-sercurity -- Security通用代码
 ├    ├── eurynome-cloud-starter -- 微服务核心Starter
