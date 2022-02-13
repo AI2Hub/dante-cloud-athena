@@ -22,7 +22,7 @@
 
 package cn.herodotus.eurynome.athena.autoconfigure;
 
-import cn.herodotus.eurynome.assistant.constant.SymbolConstants;
+import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
 import cn.herodotus.eurynome.athena.kernel.configuration.AthenaKernelConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

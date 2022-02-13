@@ -102,7 +102,7 @@ spring:
       # DDL mode. This is actually a shortcut for the "hibernate.hbm2ddl.auto" property. Default to "create-drop" when using an embedded database, "none" otherwise.spring.jpa.hibernate.ddl-auto=update
       ddl-auto: update
       naming:
-        physical-strategy: cn.herodotus.eurynome.data.jpa.hibernate.HerodotusPhysicalNamingStrategy
+        physical-strategy: cn.herodotus.engine.data.jpa.hibernate.HerodotusPhysicalNamingStrategy
     properties:
       javax:
         persistence:
@@ -117,7 +117,7 @@ spring:
           use_query_cache: true
           use_second_level_cache: true
           region:
-            factory_class: cn.herodotus.eurynome.data.jpa.hibernate.cache.spi.HerodotusRegionFactory
+            factory_class: cn.herodotus.engine.data.jpa.hibernate.cache.spi.HerodotusRegionFactory
         javax:
           cache:
             missing_cache_strategy: create
