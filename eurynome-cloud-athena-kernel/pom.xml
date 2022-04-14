@@ -29,27 +29,27 @@
     <parent>
         <artifactId>eurynome-cloud-athena</artifactId>
         <groupId>cn.herodotus.eurynome</groupId>
-        <version>2.7.0.Beta2</version>
+        <version>2.7.0.Beta5</version>
     </parent>
 
     <artifactId>eurynome-cloud-athena-kernel</artifactId>
-    <version>2.7.0.Beta2</version>
+    <version>2.7.0.Beta5</version>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>eurynome-cloud-oauth-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>eurynome-cloud-upms-rest</artifactId>
+            <artifactId>authentication-spring-boot-starter</artifactId>
             <exclusions>
                 <exclusion>
                     <artifactId>spring-cloud-starter-stream-kafka</artifactId>
                     <groupId>org.springframework.cloud</groupId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>eurynome-module-upms-rest</artifactId>
         </dependency>
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
