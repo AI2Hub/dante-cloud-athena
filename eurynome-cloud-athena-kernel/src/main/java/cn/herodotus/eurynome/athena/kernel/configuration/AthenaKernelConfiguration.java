@@ -22,9 +22,13 @@
 
 package cn.herodotus.eurynome.athena.kernel.configuration;
 
-import cn.herodotus.eurynome.upms.rest.annotation.EnableUpmsRest;
+import cn.herodotus.eurynome.athena.kernel.processor.HerodotusBusBridge;
+import cn.herodotus.eurynome.module.upms.rest.configuration.UpmsRestModuleConfiguration;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.bus.BusBridge;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 import javax.annotation.PostConstruct;
 
@@ -32,14 +36,16 @@ import javax.annotation.PostConstruct;
  * <p>Project: eurynome-cloud-athena </p>
  * <p>File: AthenaKernelConfiguration </p>
  *
- * <p>Description: TODO </p>
+ * <p>Description: 单体版基础核心配置 </p>
  *
  * @author : gengwei.zheng
  * @date : 2021/1/18 10:49
  */
 @Slf4j
-@Configuration
-@EnableUpmsRest
+@Configuration(proxyBeanMethods = false)
+@Import({
+        UpmsRestModuleConfiguration.class
+})
 public class AthenaKernelConfiguration {
 
     @PostConstruct
@@ -47,5 +53,8 @@ public class AthenaKernelConfiguration {
         log.info("[Eurynome] |- Components [Athena Kernel] Auto Configure.");
     }
 
-
+    @Bean
+    public BusBridge busBridge() {
+        return new HerodotusBusBridge();
+    }
 }

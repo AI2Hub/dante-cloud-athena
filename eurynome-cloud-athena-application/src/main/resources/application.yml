@@ -3,6 +3,11 @@ server:
   servlet:
     session:
       timeout: 1800
+  error:
+    include-exception: true
+    include-message: always
+    include-stacktrace: always
+    include-binding-errors: always
 spring:
   application:
     name:  @artifactId@
@@ -14,36 +19,10 @@ spring:
     redis:
       repositories:
         enabled: false
-  cloud:
-    bus:
-      enabled: false
-
-camunda:
-  bpm:
-    database:
-      type: postgres
-      schema-update: false
-    jpa:
-      enabled: true
-    job-execution:
-      enabled: false
-
-herodotus:
-  platform:
-    architecture: monocoque
-    security:
-      interceptor:
-        white-list:
-          - /login
-      login:
-        username-parameter: guokylin
-        password-parameter: wangqinian
-        login-url: /login
 
 jasypt:
   encryptor:
     password: ${JASPYT_HOME:2bda7d3a-dba1-45a4-b08e-cbd731a0418e}
-
 
 ---
 # 开发环境配置
@@ -144,6 +123,26 @@ spring:
     cache: false
     prefix: classpath:/templates
 
+springdoc:
+  api-docs:
+    resolve-schema-properties: true
+  swagger-ui:
+    disable-swagger-default-url: true
+    operations-sorter: method
+    show-common-extensions: true
+    show-extensions: true
+    oauth:
+      use-pkce-with-authorization-code-grant: true
+      app-name: ${spring.application.name}
+
+mybatis-plus:
+  global-config:
+    banner: false
+    db-config:
+      table-underline: true
+  configuration:
+    cache-enabled: true
+    map-underscore-to-camel-case: true
 
 jetcache:
   statIntervalMinutes: 15
@@ -167,26 +166,37 @@ jetcache:
       uri:
         - redis://${spring.redis.password}@${spring.redis.host}:${spring.redis.port}/${spring.redis.database}
 
+camunda:
+  bpm:
+    database:
+      type: postgres
+      schema-update: false
+    jpa:
+      enabled: true
+    job-execution:
+      enabled: false
+
 herodotus:
   platform:
+    architecture: monocoque
     swagger:
       # Swagger中不知道哪里包含Kafka的注解，会自动启动，如果不连接到Kafka会导致启动失败。暂时没有解决，先取消掉。
       enabled: false
-    cache:
-      clear-remote-on-exit: true
-
-
-springdoc:
-  api-docs:
-    resolve-schema-properties: true
-  swagger-ui:
-    disable-swagger-default-url: true
-    operations-sorter: method
-    show-common-extensions: true
-    show-extensions: true
-    oauth:
-      use-pkce-with-authorization-code-grant: true
-      app-name: ${spring.application.name}
+  endpoint:
+    issuer-uri: http://localhost:${server.port}
+  rest:
+    scan:
+      enabled: true
+  cache:
+    clear-remote-on-exit: true
+    expires:
+      data-upms-sys-employee:
+        duration: 2
+        unit: hours
+  captcha:
+    graphics:
+      letter: num_and_upper_char
+      font: action
 
 logging:
   level:
