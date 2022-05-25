@@ -29,11 +29,11 @@
     <parent>
         <artifactId>eurynome-cloud-athena</artifactId>
         <groupId>cn.herodotus.eurynome</groupId>
-        <version>2.7.0.0</version>
+        <version>2.7.0.10</version>
     </parent>
 
     <artifactId>eurynome-cloud-athena-kernel</artifactId>
-    <version>2.7.0.0</version>
+    <version>2.7.0.10</version>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -55,16 +55,16 @@
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-springdoc-ui</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.camunda.bpm.springboot</groupId>
-            <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                    <groupId>org.springframework.boot</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.camunda.bpm.springboot</groupId>-->
+<!--            <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>-->
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <artifactId>spring-boot-starter-tomcat</artifactId>-->
+<!--                    <groupId>org.springframework.boot</groupId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
+<!--        </dependency>-->
     </dependencies>
 
 </project>
