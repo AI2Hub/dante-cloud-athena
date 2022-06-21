@@ -5,15 +5,15 @@
 ---
 
 <p align="center">
-    <a href="https://www.oracle.com/java/technologies/javase-downloads.html" target="_blank"><img src="https://shields.io/badge/JDK-1.8%2B-green" alt="JDK 1.8+"></a>
+    <a href="https://www.oracle.com/java/technologies/javase-downloads.html" target="_blank"><img src="https://img.shields.io/badge/JDK-8%2C11%2C17-green" alt="Java 8,11,17"></a>
     <a href="https://spring.io/projects/spring-boot" target="_blank"><img src="https://shields.io/badge/Spring%20Boot-2.7.0-blue" alt="Spring Boot 2.7.0"></a>
     <a href="https://spring.io/projects/spring-cloud" target="_blank"><img src="https://shields.io/badge/Spring%20Cloud-2021.0.3-blue" alt="Spring Cloud 2021.0.3"></a>
     <a href="https://github.com/alibaba/spring-cloud-alibaba" target="_blank"><img src="https://shields.io/badge/Spring%20Cloud%20Alibaba-2021.0.1.0-blue" alt="Spring Cloud Alibaba 2021.0.1.0"></a>
-    <a href="https://github.com/spring-projects/spring-authorization-server" target="_blank"><img src="https://img.shields.io/badge/Spring%20Authorization%20Server-0.3.0-blue" alt="Spring Authorization Server 0.3.0"></a>
+    <a href="https://github.com/spring-projects/spring-authorization-server" target="_blank"><img src="https://img.shields.io/badge/Spring%20Authorization%20Server-0.3.1-blue" alt="Spring Authorization Server 0.3.1"></a>
     <a href="https://nacos.io/zh-cn/index.html" target="_blank"><img src="https://shields.io/badge/Nacos-2.1.0-brightgreen" alt="Nacos 2.1.0"></a>
     <a href="./LICENSE"><img src="https://shields.io/badge/License-Apache--2.0-blue" alt="License Apache 2.0"></a>
     <a href="https://blog.csdn.net/Pointer_v" target="_blank"><img src="https://shields.io/badge/Author-%E7%A0%81%E5%8C%A0%E5%90%9B-orange" alt="码匠君"></a>
-    <a href="#" target="_blank"><img src="https://shields.io/badge/Version-2.7.0.50-red" alt="Version 2.7.0.50"></a>
+    <a href="#" target="_blank"><img src="https://shields.io/badge/Version-2.7.0.60-red" alt="Version 2.7.0.60"></a>
     <a href="https://gitee.com/herodotus/eurynome-cloud"><img src="https://gitee.com/herodotus/eurynome-cloud/badge/star.svg?theme=dark" alt="Gitee star"></a>
     <a href="https://gitee.com/herodotus/eurynome-cloud"><img src="https://gitee.com/herodotus/eurynome-cloud/badge/fork.svg?theme=dark" alt="Gitee fork"></a>
 </p>
@@ -30,7 +30,7 @@
 
 ## 企业级技术中台微服务架构与服务能力开发平台
 
-Eurynome Cloud是一款企业级微服务架构和服务能力开发平台。基于Spring Boot 2.7.0、Spring Cloud 2021.0.3、Spring Cloud Alibaba 2021.0.1.0、Spring Authorization Server 0.3.0、Nacos 2.1.0 等最新版本开发，遵循SpringBoot编程思想，高度模块化和可配置化。具备服务发现、配置、熔断、限流、降级、监控、多级缓存、分布式事务、工作流等功能，代码简洁，架构清晰，非常适合学习和企业作为基础框架使用。
+Eurynome Cloud是一款企业级微服务架构和服务能力开发平台。基于Spring Boot 2.7.0、Spring Cloud 2021.0.3、Spring Cloud Alibaba 2021.0.1.0、Spring Authorization Server 0.3.1、Nacos 2.1.0 等最新版本开发，遵循SpringBoot编程思想，高度模块化和可配置化。具备服务发现、配置、熔断、限流、降级、监控、多级缓存、分布式事务、工作流等功能，代码简洁，架构清晰，非常适合学习和企业作为基础框架使用。
 
 ## 平台定位
 
@@ -41,16 +41,17 @@ Eurynome Cloud是一款企业级微服务架构和服务能力开发平台。基
 
 ## 重要说明
 
-Eurynome Cloud 自 v2.7.0.20 版本，开始全面使用 JDK 17。自该版本以后，系统代码将不再兼容 JDK 8，敬请悉知！
+由于 Spring Authorization Server 0.3.0 版本，使用 JDK 11 进行代码编译。导致使用该版本在 Java 8 下代码已无法编译成功，所以必须要升级 JDK 版本。同时，考虑到 2022 年 11 月，Spring Boot 3 将会发布，最低版本要求 JDK 17。因此，直接将 Java 版本升级至 17。Eurynome Cloud 2.7.0.20 ~ 2.7.0.50 均是采用 JDK 17 编译运行，同时不兼容 JDK 8。
 
-升级使用 JDK 17 的主要原因：
+不管是 Spring Authorization Server 还是本项目 Eurynome Cloud，各路网友均不主张在现阶段直接将 Java 升级 17，而是希望继续兼容 Java 8，在 Spring Boot 3 发布以后再统一升级为默认使用 Java 17
 
-1. Spring Authorization Server 0.3.0 版本，已经开始使用 JDK 11 进行代码编译。该版本在 JDK 8 下已无法编译成功，想要使用必须要升级 JDK 版本。
-2. 2022 年 11 月，Spring Boot 3 将会发布，最低版本要求 JDK 17。因此，直接将 JDK 版本升级至 17，同时为升级至 Spring Boot 3 提前做铺垫准备。
+因此 Spring Authorization Server 0.3.1 版本，代码降级兼容了 Java 8。Eurynome Cloud 也同步进行了代码的降级兼容处理，以兼容 Java 8。**经过验证，目前 Erurynom Cloud 在 Java 8、11、17 环境下均可以正常稳定运行**
+
+> Spring Authorization Server 发布两个版本，Eurynome Cloud 使用的 Java 版本就跟着变，升到 Java 17 又跟着降回 Java 8，折腾一圈浪费功夫。看似折腾实则不然，经此一役，Eurynome Cloud 已经完全支持 Java 8 Java 11 和 Java 17，未来升级使用 Spring Boot 3 也不是问题。验证了那句话“用心认真走过的每条路都不会白走”
 
 ## 升级说明
 
-在 `Spring Security OAuth2` 彻底停止维护、Spring Boot 2.7.0 正式发布之时，又恰逢 `Eurynome Cloud` 开源一周年之际，推出基于Spring Authorization Server 0.3.0、Spring Boot 2.7.0、Spring Cloud 2021.0.3、Spring Cloud Alibaba 2021.0.1.0 和 Nacos 2.1.0 的全新正式版本。
+在 Spring Security OAuth2 彻底停止维护、Spring Boot 2.7.0 正式发布之时，又恰逢 Eurynome Cloud 开源一周年之际，推出基于 Spring Authorization Server 0.3.1、Spring Boot 2.7.0、Spring Cloud 2021.0.3、Spring Cloud Alibaba 2021.0.1.0 和 Nacos 2.1.0 的全新正式版本。细节满满，欢迎品鉴。
 
 ## 新版特点
 
@@ -94,14 +95,6 @@ Eurynome Cloud 自 v2.7.0.20 版本，开始全面使用 JDK 17。自该版本�
 1. 本项目以后将主要维护 `Spring Authorization Server` 版本，原有基于 `Spring Security OAuth2` 的版本已经移至 spring-security-oauth2 分支，可以从该分支或发行版页面获取历史版本继续使用。后期会根据 ISSUE 以及使用用户反馈情况，再行决定是否继续维护 `Spring Security OAuth2` 版本。
 2. 最新版本代码，暂时继续沿用原有基于 Vue2、Vuetify2、Typescript开发的前端系统。基于 Vue3、Vite2、Vuetify3、Pinia 等新版前端正在加进开发中，由于 Vuetify3 版本发布跳票以及部分已有组件的缺失，导致新版前端开发延后。
 3. 原有基于 Vue2、Vuetify2、Typescript 开发的前端，由于使用了过渡性 Typescript IOC 组件，以及依赖组件版本限制等问题，初次接触该项目在编译过程中会出现一些问题，请移步至本项目在线文档，详见“常见问题”章节。
-
-### 为什么前端框架选择 Vuetify
-
-在本项目建设初期，选择 Vuetify 作为前端组件，主要原因就是其是 Material 样式的UI组件以及更新频率较高、维护的持续性较好。经过几年的使用，发现该套组件库封装度很高，组件的属性配置丰富、使用灵活、可定制性强、学习使用曲线低。
-
-特别是 Vuetify 对常见的样式使用和布局处理进行了深度封装，不需在样式和布局设计上投入大量精力，通过简单的属性配置就可以做出比较好看的界面。这一点对不擅长前端和美工设计、想快速实现前端的后端人员非常友好。
-
-在进行 Vue3 版本开发之前，也对 Element Plus、Naive UI 等组件库进行了对比，也基于评分较高的开源后台模版进行了尝试性开发。发现大多数组件库相比 Vuetify，组件配置属性都少了很多，没有Vuetify灵活，而且都需要自己编写大量的样式，甚至需要自己实现常规组件。因此，新版本前端最终仍旧选择使用 Vuetify。
 
 ## 重要信息
 
@@ -147,7 +140,7 @@ Eurynome Cloud 自 v2.7.0.20 版本，开始全面使用 JDK 17。自该版本�
 | Spring Boot                 | 2.7.0      |
 | Spring Cloud                | 2021.0.3   |
 | Spring Cloud Alibaba        | 2021.0.1.0 |
-| Spring Authorization Server | 0.3.0      |
+| Spring Authorization Server | 0.3.1      |
 | Spring Boot Admin           | 2.7.0      |
 | Nacos                       | 2.1.0      |
 | Sentinel                    | 1.8.3      |
