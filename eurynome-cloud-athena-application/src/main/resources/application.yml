@@ -12,7 +12,7 @@ spring:
   application:
     name:  @artifactId@
   profiles:
-    active: mysql8
+    active: develpment
   main:
     allow-bean-definition-overriding: true
   data:
