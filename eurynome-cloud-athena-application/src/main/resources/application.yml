@@ -135,7 +135,7 @@ springdoc:
     show-common-extensions: true
     show-extensions: true
     oauth:
-      use-pkce-with-authorization-code-grant: true
+      use-pkce-with-authorization-code-grant: false
       app-name: ${spring.application.name}
 
 mybatis-plus:
@@ -187,6 +187,10 @@ herodotus:
       enabled: false
   endpoint:
     issuer-uri: http://localhost:${server.port}
+    gateway-service-uri: ${herodotus.endpoint.issuer-uri}
+    uaa-service-uri: ${herodotus.endpoint.issuer-uri}
+    upms-service-uri: ${herodotus.endpoint.issuer-uri}
+    access-token-uri: ${herodotus.endpoint.issuer-uri}/oauth2/token
   rest:
     scan:
       enabled: true
