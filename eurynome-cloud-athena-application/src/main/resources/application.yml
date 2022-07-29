@@ -12,7 +12,7 @@ spring:
   application:
     name:  @artifactId@
   profiles:
-    active: develpment
+    active: mysql8
   main:
     allow-bean-definition-overriding: true
   data:
@@ -233,7 +233,7 @@ spring:
   sql:
     init:
       mode: never
-      platform: postgresql
+      platform: mysql
       continue-on-error: false
       encoding: UTF-8
       username: ${spring.datasource.username}
