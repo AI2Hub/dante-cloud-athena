@@ -50,18 +50,6 @@ Dante Cloud  (但丁，原 Eurynome Cloud) 是一款企业级微服务架构和�
 - 平台架构使用微服务领域及周边相关的各类新兴技术或主流技术进行建设，是帮助快速跨越架构技术选型、研究探索阶段的利器。
 - 代码简洁规范、结构合理清晰，是新技术开发应用的典型的、综合性案例，助力开发人员对新兴技术的学习和掌握。
 
-## 重要说明
-
-由于 Spring Authorization Server 0.3.0 版本，使用 Java 11 进行代码编译。导致使用该版本在 Java 8 下代码已无法编译成功，所以必须要升级 Java 版本。同时，考虑到 2022 年 11 月，Spring Boot 3 将会发布，最低版本要求 Java 17。因此，直接将 Java 版本升级至 17。Dante Cloud 2.7.0.20 ~ 2.7.0.50 均是采用 Java 17 编译运行，同时不兼容 Java 8。
-
-不管是 Spring Authorization Server 还是本项目 Dante Cloud，各路网友均不主张在现阶段直接将 Java 升级 17，而是希望继续兼容 Java 8，在 Spring Boot 3 发布以后再统一升级为默认使用 Java 17 。Spring Authorization Server 0.3.1 版本，代码降级兼容了 Java 8。Dante Cloud 也同步进行了代码的降级兼容处理，以兼容 Java 8。**经过验证，目前 Erurynom Cloud 在 Java 8、11、17 环境下均可以正常稳定运行**
-
-> Spring Authorization Server 发布两个版本，Dante Cloud 使用的 Java 版本就跟着变，升到 Java 17 又跟着降回 Java 8，折腾一圈浪费功夫。看似折腾实则不然，经此一役，Dante Cloud 已经完全支持 Java 8 Java 11 和 Java 17，未来升级使用 Spring Boot 3 也不是问题。验证了那句话“用心认真走过的每条路都不会白走”
-
-## 升级说明
-
-基于 Vue3、Vite3、Pinia、Quasar2、Typescript、Hooks 等最新技术栈，全新构建前端工程正式发布
-
 ## 新版前端特点：
 
 1. 未使用任何流行开源模版，使用全新技术栈，完全纯"手写"全新前端工程。
