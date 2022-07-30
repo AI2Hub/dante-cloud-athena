@@ -1,0 +1,410 @@
+server:
+  port: 8847
+  servlet:
+    session:
+      timeout: 1800
+  error:
+    include-exception: true
+    include-message: always
+    include-stacktrace: always
+    include-binding-errors: always
+spring:
+  application:
+    name:  @artifactId@
+  profiles:
+    active: mysql8
+  main:
+    allow-bean-definition-overriding: true
+  data:
+    redis:
+      repositories:
+        enabled: false
+  cloud:
+    httpclientfactories:
+      ok:
+        enabled: false
+jasypt:
+  encryptor:
+    password: ${JASPYT_HOME:2bda7d3a-dba1-45a4-b08e-cbd731a0418e}
+
+---
+# 开发环境配置
+spring:
+  config:
+    activate:
+      on-profile: develpment
+  sql:
+    init:
+      mode: never
+      platform: postgresql
+      continue-on-error: false
+      encoding: UTF-8
+      username: ${spring.datasource.username}
+      password: ${spring.datasource.password}
+      data-locations:
+#        - classpath:sqls/upms-data-mysql.sql
+        - classpath:sqls/upms-data-postgresql.sql
+
+  datasource:
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    url: jdbc:p6spy:postgresql://localhost:15432/athena
+    username: athena
+    password: athena
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      # Lowest acceptable connection timeout is 250 ms. Default: 30000 (30 seconds)
+      connection-timeout: 5000
+      connection-test-query: SELECT 1
+      # The minimum allowed value is 10000ms (10 seconds). Default: 600000 (10 minutes)
+      idle-timeout: 600000
+      minimum-idle: 10
+      maximum-pool-size: 20
+      # We strongly recommend setting this value, and it should be at least 30 seconds less than any database or infrastructure imposed connection time limit.
+      # Default: 1800000 (30 minutes)
+      max-lifetime: 1800000
+      pool-name: Hikari
+      # Lowest acceptable validation timeout is 250 ms. Default: 5000
+      validation-timeout: 5000
+      data-source-properties:
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        cachePrepStmts: true
+        cacheResultSetMetadata: true
+        cacheServerConfiguration: true
+        useServerPrepStmts: true
+        useLocalSessionState: true
+        rewriteBatchedStatement: true
+        elideSetAutoCommits: true
+        maintainTimeStats: false
+  jpa:
+    database: postgresql
+    generate-ddl: true
+    open-in-view: true
+    hibernate:
+      # DDL mode. This is actually a shortcut for the "hibernate.hbm2ddl.auto" property. Default to "create-drop" when using an embedded database, "none" otherwise.spring.jpa.hibernate.ddl-auto=update
+      ddl-auto: update
+      naming:
+        physical-strategy: cn.herodotus.engine.data.jpa.hibernate.HerodotusPhysicalNamingStrategy
+    properties:
+      javax:
+        persistence:
+          sharedCache:
+            mode: ENABLE_SELECTIVE
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL10Dialect
+        format_sql: false
+        show_sql: false
+        generate_statistics: false
+        cache:
+          use_query_cache: true
+          use_second_level_cache: true
+          region:
+            factory_class: cn.herodotus.engine.data.jpa.hibernate.cache.spi.HerodotusRegionFactory
+        javax:
+          cache:
+            missing_cache_strategy: create
+        temp:
+          use_jdbc_metadata_defaults: false
+  redis:
+    database: 3
+    host: 192.168.101.10
+    password:
+    port: 16379
+    timeout: 10000
+    # 如果使用的jedis 则将lettuce改成jedis即可
+    lettuce:
+      pool:
+        # 最大活跃链接数 默认8
+        max-active: 10
+        max-wait: 10000
+        # 最大空闲连接数 默认8
+        max-idle: 10
+        # 最小空闲连接数 默认0
+        min-idle: 5
+  thymeleaf:
+    mode: HTML
+    cache: false
+    prefix: classpath:/templates
+
+springdoc:
+  api-docs:
+    resolve-schema-properties: true
+  swagger-ui:
+    disable-swagger-default-url: true
+    operations-sorter: method
+    show-common-extensions: true
+    show-extensions: true
+    oauth:
+      use-pkce-with-authorization-code-grant: false
+      app-name: ${spring.application.name}
+
+mybatis-plus:
+  global-config:
+    banner: false
+    db-config:
+      table-underline: true
+  configuration:
+    cache-enabled: true
+    map-underscore-to-camel-case: true
+
+jetcache:
+  statIntervalMinutes: 15
+  areaInCacheName: false
+  local:
+    default:
+      type: caffeine
+      keyConvertor: fastjson
+      limit: 1000
+  remote:
+    default:
+      type: redis.lettuce
+      keyConvertor: fastjson
+      valueEncoder: java
+      valueDecoder: java
+      poolConfig:
+        minIdle: ${spring.redis.lettuce.pool.min-idle}
+        maxIdle: ${spring.redis.lettuce.pool.max-idle}
+        maxTotal: ${spring.redis.lettuce.pool.max-active}
+        maxWait: ${spring.redis.lettuce.pool.max-wait}
+      uri:
+        - redis://${spring.redis.password}@${spring.redis.host}:${spring.redis.port}/${spring.redis.database}
+
+camunda:
+  bpm:
+    database:
+      type: postgres
+      schema-update: false
+    jpa:
+      enabled: true
+    job-execution:
+      enabled: false
+
+herodotus:
+  platform:
+    architecture: monocoque
+    swagger:
+      # Swagger中不知道哪里包含Kafka的注解，会自动启动，如果不连接到Kafka会导致启动失败。暂时没有解决，先取消掉。
+      enabled: false
+  endpoint:
+    issuer-uri: http://localhost:${server.port}
+    gateway-service-uri: ${herodotus.endpoint.issuer-uri}
+    uaa-service-uri: ${herodotus.endpoint.issuer-uri}
+    upms-service-uri: ${herodotus.endpoint.issuer-uri}
+    access-token-uri: ${herodotus.endpoint.issuer-uri}/oauth2/token
+  rest:
+    scan:
+      enabled: true
+  cache:
+    clear-remote-on-exit: true
+    expires:
+      data-upms-sys-employee:
+        duration: 2
+        unit: hours
+  captcha:
+    graphics:
+      letter: num_and_upper_char
+      font: action
+
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
+    org.springframework.security: debug
+    org.springframework.web: debug
+    cn.herodotus.dante: DEBUG
+    com.alicp.jetcache: INFO
+  file:
+    name: logs/dante-cloud-athena.log
+
+---
+# 生产环境配置
+spring:
+  config:
+    activate:
+      on-profile: production
+
+
+---
+# 开发环境配置
+spring:
+  config:
+    activate:
+      on-profile: mysql8
+  sql:
+    init:
+      mode: never
+      platform: mysql
+      continue-on-error: false
+      encoding: UTF-8
+      username: ${spring.datasource.username}
+      password: ${spring.datasource.password}
+      data-locations:
+        #        - classpath:sqls/upms-data-mysql.sql
+        - classpath:sqls/upms-data-postgresql.sql
+
+  datasource:
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    url: jdbc:p6spy:mysql://127.0.0.1:13306/athena?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: athena
+    password: athena
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      # Lowest acceptable connection timeout is 250 ms. Default: 30000 (30 seconds)
+      connection-timeout: 5000
+      connection-test-query: SELECT 1
+      # The minimum allowed value is 10000ms (10 seconds). Default: 600000 (10 minutes)
+      idle-timeout: 600000
+      minimum-idle: 10
+      maximum-pool-size: 20
+      # We strongly recommend setting this value, and it should be at least 30 seconds less than any database or infrastructure imposed connection time limit.
+      # Default: 1800000 (30 minutes)
+      max-lifetime: 1800000
+      pool-name: Hikari
+      # Lowest acceptable validation timeout is 250 ms. Default: 5000
+      validation-timeout: 5000
+      data-source-properties:
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        cachePrepStmts: true
+        cacheResultSetMetadata: true
+        cacheServerConfiguration: true
+        useServerPrepStmts: true
+        useLocalSessionState: true
+        rewriteBatchedStatement: true
+        elideSetAutoCommits: true
+        maintainTimeStats: false
+  jpa:
+    database: mysql
+    generate-ddl: true
+    open-in-view: true
+    hibernate:
+      # DDL mode. This is actually a shortcut for the "hibernate.hbm2ddl.auto" property. Default to "create-drop" when using an embedded database, "none" otherwise.spring.jpa.hibernate.ddl-auto=update
+      ddl-auto: update
+      naming:
+        physical-strategy: cn.herodotus.engine.data.jpa.hibernate.HerodotusPhysicalNamingStrategy
+    properties:
+      javax:
+        persistence:
+          sharedCache:
+            mode: ENABLE_SELECTIVE
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: false
+        show_sql: false
+        generate_statistics: false
+        cache:
+          use_query_cache: true
+          use_second_level_cache: true
+          region:
+            factory_class: cn.herodotus.engine.data.jpa.hibernate.cache.spi.HerodotusRegionFactory
+        javax:
+          cache:
+            missing_cache_strategy: create
+        temp:
+          use_jdbc_metadata_defaults: false
+  redis:
+    database: 3
+    host: 192.168.101.10
+    password:
+    port: 16379
+    timeout: 10000
+    # 如果使用的jedis 则将lettuce改成jedis即可
+    lettuce:
+      pool:
+        # 最大活跃链接数 默认8
+        max-active: 10
+        max-wait: 10000
+        # 最大空闲连接数 默认8
+        max-idle: 10
+        # 最小空闲连接数 默认0
+        min-idle: 5
+  thymeleaf:
+    mode: HTML
+    cache: false
+    prefix: classpath:/templates
+
+springdoc:
+  api-docs:
+    resolve-schema-properties: true
+  swagger-ui:
+    disable-swagger-default-url: true
+    operations-sorter: method
+    show-common-extensions: true
+    show-extensions: true
+    oauth:
+      use-pkce-with-authorization-code-grant: true
+      app-name: ${spring.application.name}
+
+mybatis-plus:
+  global-config:
+    banner: false
+    db-config:
+      table-underline: true
+  configuration:
+    cache-enabled: true
+    map-underscore-to-camel-case: true
+
+jetcache:
+  statIntervalMinutes: 15
+  areaInCacheName: false
+  local:
+    default:
+      type: caffeine
+      keyConvertor: fastjson
+      limit: 1000
+  remote:
+    default:
+      type: redis.lettuce
+      keyConvertor: fastjson
+      valueEncoder: java
+      valueDecoder: java
+      poolConfig:
+        minIdle: ${spring.redis.lettuce.pool.min-idle}
+        maxIdle: ${spring.redis.lettuce.pool.max-idle}
+        maxTotal: ${spring.redis.lettuce.pool.max-active}
+        maxWait: ${spring.redis.lettuce.pool.max-wait}
+      uri:
+        - redis://${spring.redis.password}@${spring.redis.host}:${spring.redis.port}/${spring.redis.database}
+
+camunda:
+  bpm:
+    database:
+      type: postgres
+      schema-update: false
+    jpa:
+      enabled: true
+    job-execution:
+      enabled: false
+
+herodotus:
+  platform:
+    architecture: monocoque
+    swagger:
+      # Swagger中不知道哪里包含Kafka的注解，会自动启动，如果不连接到Kafka会导致启动失败。暂时没有解决，先取消掉。
+      enabled: false
+  endpoint:
+    issuer-uri: http://localhost:${server.port}
+  rest:
+    scan:
+      enabled: true
+  cache:
+    clear-remote-on-exit: true
+    expires:
+      data-upms-sys-employee:
+        duration: 2
+        unit: hours
+  captcha:
+    graphics:
+      letter: num_and_upper_char
+      font: action
+
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
+    org.springframework.security: debug
+    org.springframework.web: debug
+    cn.herodotus.dante: DEBUG
+    com.alicp.jetcache: INFO
+  file:
+    name: logs/dante-cloud-athena.log

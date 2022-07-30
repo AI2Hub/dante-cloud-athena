@@ -14,8 +14,8 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   ~
-  ~ Project Name: eurynome-cloud-athena
-  ~ Module Name: eurynome-cloud-athena
+  ~ Project Name: dante-cloud-athena
+  ~ Module Name: dante-cloud-athena
   ~ File Name: pom.xml
   ~ Author: gengwei.zheng
   ~ Date: 2021/05/15 08:15:15
@@ -26,17 +26,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <name>eurynome-cloud-athena</name>
-    <description>基于Spring Security和Vue重新做一版单体式系统的脚手架。同时，尽量使用eurynome-cloud通用代码。</description>
+    <name>dante-cloud-athena</name>
+    <description>基于Spring Security和Vue重新做一版单体式系统的脚手架。同时，尽量使用dante-cloud通用代码。</description>
 
     <parent>
-        <groupId>cn.herodotus.eurynome</groupId>
+        <groupId>cn.herodotus.dante</groupId>
         <artifactId>dependencies</artifactId>
-        <version>2.7.2.1</version>
+        <version>2.7.2.2</version>
     </parent>
 
-    <artifactId>eurynome-cloud-athena</artifactId>
-    <version>2.7.2.1</version>
+    <artifactId>dante-cloud-athena</artifactId>
+    <version>2.7.2.2</version>
     <packaging>pom</packaging>
 
 
@@ -47,7 +47,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <eurynome.cloud.version>2.7.2.1</eurynome.cloud.version>
+        <dante.cloud.version>2.7.2.2</dante.cloud.version>
     </properties>
 
     <!-- 所有的子项目默认依赖 -->
@@ -63,22 +63,22 @@
         <dependencies>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>eurynome-cloud-athena-kernel</artifactId>
+                <artifactId>dante-cloud-athena-kernel</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>eurynome-cloud-athena-starter</artifactId>
+                <artifactId>dante-cloud-athena-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
     <modules>
-        <module>eurynome-cloud-athena-kernel</module>
-        <module>eurynome-cloud-athena-application</module>
-        <module>eurynome-cloud-athena-starter</module>
+        <module>dante-cloud-athena-kernel</module>
+        <module>dante-cloud-athena-application</module>
+        <module>dante-cloud-athena-starter</module>
     </modules>
 
     <build>

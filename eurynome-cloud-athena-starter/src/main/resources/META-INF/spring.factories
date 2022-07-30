@@ -1,2 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  cn.herodotus.eurynome.athena.autoconfigure.AutoConfiguration
