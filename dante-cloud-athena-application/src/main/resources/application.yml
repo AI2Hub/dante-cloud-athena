@@ -12,7 +12,7 @@ spring:
   application:
     name:  @artifactId@
   profiles:
-    active: mysql8
+    active: development
   main:
     allow-bean-definition-overriding: true
   data:
@@ -32,7 +32,7 @@ jasypt:
 spring:
   config:
     activate:
-      on-profile: develpment
+      on-profile: development
   sql:
     init:
       mode: never
@@ -184,7 +184,7 @@ herodotus:
     architecture: monocoque
     swagger:
       # Swagger中不知道哪里包含Kafka的注解，会自动启动，如果不连接到Kafka会导致启动失败。暂时没有解决，先取消掉。
-      enabled: false
+      enabled: true
   endpoint:
     issuer-uri: http://localhost:${server.port}
     gateway-service-uri: ${herodotus.endpoint.issuer-uri}
@@ -204,6 +204,53 @@ herodotus:
     graphics:
       letter: num_and_upper_char
       font: action
+  sms:
+    enabled: true
+    default-channel: ALIYUN
+    aliyun:
+      enabled: true
+      access-key-id: LTAIbpBuZTocddot
+      access-key-secret: qqTHQOJRlc7BSqPJMjHnftGH4vmW2W
+      region-id: cn-shanghai
+      sign-name: braineex
+      version: 2017-05-25
+      templates: { "VERIFICATION_CODE": "SMS_180052229" }
+    recluse:
+      enabled: true
+      username: aaa
+      password: bbb
+      cm:
+        host: 192.168.101.10
+        port: 8888
+      ws:
+        host: 192.168.101.10
+        port: 9999
+      templates: { "VERIFICATION_CODE": "VERIFICATION_CODE" }
+  access:
+    justauth:
+      enabled: true
+      GITEE:
+        - client-id: 7c1623d76f3909757912338688cae8a061e241b56070face6d54114eb61c6766
+        - client-secret: 8c343cad9ca732d54242f002d254239e17b68cab11c1d506a57822be82899914
+        - redirect-uri: http://192.168.101.10:8847/herodotus-cloud-uaa/oauth/social/gitee
+  pay:
+    alipay:
+      enabled: true
+      sandbox: true
+      cert-mode: false
+      default-profile: sandbox
+      return-url: http://aw255fkfqy5m.ngrok2.xiaomiqiu.cn/open/pay/alipay/return
+      notify-url: http://aw255fkfqy5m.ngrok2.xiaomiqiu.cn/open/pay/alipay/notify
+      profiles:
+        sandbox:
+          app-id: 2021000118687269
+          app-private-key: MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCQ9fVJ8NxA4lAQTIlP6xEm6arDNXegL580/GjsBLhCLx43bIcXpzWBPqf2FA0EWznT6Dcm6PcPxpbTKFtcp2p/+KzwCc2Mg0XEgig28QNK42Ax2XHeWI5AQr6kNxIP8kiSG0dO5D5+FqDlbWq4Fxid5mdPfOn0NycSOg5qc5HV6WSvSSfmvim8vI/uF63IdccGEBb8zEQZXDv25ji13/QCNlrc1gmZAANyWoLm/xkeS2rZnECICwCQ7rFq2b5wcIOh4TO+Fv9AEGL2uMinKWelq32bjv6/eP5K51Dx5Zm6bfxdrO9AhiwwcqOMme1PTeEOC1eqDhWeadjngK+or2g5AgMBAAECggEAd+7nKGvc7tnPQAzytmpX4IgHPkboWGHOKPqEnHEzOZ7eMyDZjFpNTEdYk6H3Oxl2+Lnxl4G7lxPJCZ8kJ75jwMkv29FgfNbHTFQbjYlOHhGNLvEm4r0FxGj0bc0aZpMgM7HaB42TnqJ+MBOc7f494bYU15ETx3gyHURnVO+VQxL95vny+HLyl+aWf9jRJRWuUKx8QnaMr9sQz0P10QTfR9NgqT4dUUQBcku2PcfTWF7/d0zIZ97rzfOsz9POjzFnvSEZzcs93QnovDco+CGnioCRXcYuYzDVdeYINvjGahI/ftWX7d6YeT6acxFzMdgMEUQsr73BSYs+Kt0pnXu2AQKBgQDEMexnnfVDEVS3B6na5K9JJi3zenZvEXczOlZNANp1+XFBLNriIiJwqbBoyEyyC+0NWbiS3Pxh3rDW+xmbBRNthEFoN0+SCqYjqFv9BNkLJIFEpT9UPVSahoY5coR0hOBqbhAlysSOHEKmgHbILgGsGJF4p/58X0PtLP841Gb04QKBgQC9JfifEpWTRJkKqS/nUI90CJsUCZ3RTJAYIGVUR6wUDlQbbm+Wxv/H4OX3Sc/PqszFBJ+qDtmvlcZCI2AYYE5yJDE8Zlt/o7AAVRh44cQB1dsL4ZsG9HpCGb5KUpttqKMVHiZyqmMh8kYV8wLGPBI6tnRgLx6FyeVmhTlUVQcGWQKBgAgsNDbUw6S5khfVv+OYZxza9EsSLODPj3GY2oN2p6MGcwtN/Qgyd9DNoMWcomVATe2icSfdAL5q8l7iMtzcR0Tmn3rh4vSocOdHWh2eGBR4vtHHOG4f5+hP9kNqW84mwtpsH0wTuEBbOQOKkmggUn2CwHyQMu+nYEL+/tq1LlzBAoGBAJor2wx9r2FMJpoj8SHP7j2bzht1AyfYChNARJd/m+j1DOUXDOmO5mlbDNaVWUdhZmqoLCQG2rRdli3Oe8MirI4opeEfZTESkKCUu8+75XHBiDuU9jGjEAvUw9/8mSe2rsbFvnz0GL1QpoO5gedmi01D7nN/tJdESzFXIbV1YLZxAoGARP9zaXdoRoMSztVrHicLcFBEKSpAeDgp1m6GPWqqtWzLWVMblKwcz9Mpn30mgUpie9taiIrBrO3anQ+VTJuYyAfot8019pTU9G7t2cb3ojldwgAVy79E6dEgvKvvD11vS28pi33tjWnsaTEtHY5yarS5daZTGJmvdSUR9q1+eD0=
+          alipay-public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArAGFETKzeqJ2oYPpjfPmxAKJonEalcvDsUXmfZiAVSZYzNSJqq6mhed81Tb5yBz4Bn2u+ZAoWyyedbC7/jPIk5bR76EU8WG+jTZ5pHb1rsywMtsQ8QpVrjLPHQpqSgV0Sti51zJSGYAiFxUFiTRz/7TiYLcwkIYj3s+hHg1Zbdio4aAtUPdeqGagHmUMSzcETFwYlua0v6Jqy8CWxamKdCROhQ3ueJqIY/l0xBFkWcLgQXzsRO/G1vBuZb6o7tAyxxm0WvSVewMVV0gcvkPSLtXdgRoune4i6vbHXyHJeqXPlB91BRx/OAearoVYy7gSY5SfqSDKwQOzH1SZRPX5mQIDAQAB
+  oss:
+    minio:
+      endpoint: http://127.0.0.1:9000
+      access-key: herodotus
+      secret-key: herodotus
 
 logging:
   level:
@@ -211,7 +258,7 @@ logging:
     org.springframework: INFO
     org.springframework.security: debug
     org.springframework.web: debug
-    cn.herodotus.dante: DEBUG
+    cn.herodotus: DEBUG
     com.alicp.jetcache: INFO
   file:
     name: logs/dante-cloud-athena.log
@@ -397,6 +444,24 @@ herodotus:
     graphics:
       letter: num_and_upper_char
       font: action
+  sms:
+    enabled: true
+    default-channel: ALIYUN
+    aliyun:
+      enabled: true
+      access-key-id: XXXXXXX
+      access-key-secret: XXXXX
+      region-id: cn-shanghai
+      sign-name: bbbbbbbb
+      version: 2017-05-25
+      templates: { "VERIFICATION_CODE": "SMS_22222222" }
+  access:
+    justauth:
+      enabled: true
+      GITEE:
+        - client-id: 7c1623d76f3909757912338688cae8a061e2
+        - client-secret: 8c343cad9ca732d54242f002d254239e17b
+        - redirect-uri: http://192.168.101.10:8847/dante-cloud-uaa/oauth/social/gitee
 
 logging:
   level:
