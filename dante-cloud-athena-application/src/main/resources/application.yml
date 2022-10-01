@@ -42,8 +42,8 @@ spring:
       username: ${spring.datasource.username}
       password: ${spring.datasource.password}
       data-locations:
-#        - classpath:sqls/upms-data-mysql.sql
-        - classpath:sqls/upms-data-postgresql.sql
+#        - classpath:sqls/uaa-data-mysql.sql
+        - classpath:sqls/uaa-data-postgresql.sql
 
   datasource:
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
@@ -285,8 +285,8 @@ spring:
       username: ${spring.datasource.username}
       password: ${spring.datasource.password}
       data-locations:
-        #        - classpath:sqls/upms-data-mysql.sql
-        - classpath:sqls/upms-data-postgresql.sql
+        #        - classpath:sqls/uaa-data-mysql.sql
+        - classpath:sqls/uaa-data-postgresql.sql
 
   datasource:
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
