@@ -368,6 +368,12 @@ spring:
     mode: HTML
     cache: false
     prefix: classpath:/templates
+  security:
+    oauth2:
+      resourceserver:
+        opaquetoken:
+          client-id: 14a9cf797931430896ad13a6b1855611
+          client-secret: a05fe1fc50ed42a4990c6c6fc4bec398
 
 springdoc:
   api-docs:
@@ -431,6 +437,10 @@ herodotus:
       enabled: false
   endpoint:
     issuer-uri: http://localhost:${server.port}
+    gateway-service-uri: ${herodotus.endpoint.issuer-uri}
+    uaa-service-uri: ${herodotus.endpoint.issuer-uri}
+    upms-service-uri: ${herodotus.endpoint.issuer-uri}
+    access-token-uri: ${herodotus.endpoint.issuer-uri}/oauth2/token
   rest:
     scan:
       enabled: true
