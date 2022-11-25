@@ -24,13 +24,13 @@ package cn.herodotus.dante.athena.kernel.configuration;
 
 import cn.herodotus.dante.athena.kernel.processor.HerodotusBusBridge;
 import cn.herodotus.dante.module.upms.rest.configuration.UpmsRestModuleConfiguration;
-import lombok.extern.slf4j.Slf4j;
+import jakarta.annotation.PostConstruct;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cloud.bus.BusBridge;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-
-import javax.annotation.PostConstruct;
 
 /**
  * <p>Project: dante-cloud-athena </p>
@@ -41,12 +41,13 @@ import javax.annotation.PostConstruct;
  * @author : gengwei.zheng
  * @date : 2021/1/18 10:49
  */
-@Slf4j
 @Configuration(proxyBeanMethods = false)
 @Import({
         UpmsRestModuleConfiguration.class
 })
 public class AthenaKernelConfiguration {
+
+    private static final Logger log = LoggerFactory.getLogger(AthenaKernelConfiguration.class);
 
     @PostConstruct
     public void postConstruct() {

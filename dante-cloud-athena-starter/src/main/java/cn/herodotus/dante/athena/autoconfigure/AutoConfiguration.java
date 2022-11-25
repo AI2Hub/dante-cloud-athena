@@ -22,10 +22,13 @@
 
 package cn.herodotus.dante.athena.autoconfigure;
 
-import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
 import cn.herodotus.dante.athena.kernel.configuration.AthenaKernelConfiguration;
-import lombok.extern.slf4j.Slf4j;
+import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
+import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -36,8 +39,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * <p>Project: dante-cloud-athena </p>
@@ -48,10 +49,11 @@ import javax.servlet.http.HttpServletResponse;
  * @author : gengwei.zheng
  * @date : 2020/12/29 20:52
  */
-@Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @Import({AthenaKernelConfiguration.class, CorsConfiguration.class})
 public class AutoConfiguration {
+
+    private static final Logger log = LoggerFactory.getLogger(AutoConfiguration.class);
 
     private static final String[] ACCESS_CONTROL_ALLOW_METHODS = new String[]{HttpMethod.GET.name(), HttpMethod.POST.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name(), HttpMethod.OPTIONS.name()};
 
