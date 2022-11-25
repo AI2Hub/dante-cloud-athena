@@ -92,12 +92,12 @@ spring:
       naming:
         physical-strategy: cn.herodotus.engine.data.jpa.hibernate.HerodotusPhysicalNamingStrategy
     properties:
-      javax:
+      jakarta:
         persistence:
           sharedCache:
             mode: ENABLE_SELECTIVE
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQL10Dialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
         show_sql: false
         generate_statistics: false
@@ -105,33 +105,34 @@ spring:
           use_query_cache: true
           use_second_level_cache: true
           region:
-            factory_class: cn.herodotus.engine.data.jpa.hibernate.cache.spi.HerodotusRegionFactory
-        javax:
+            factory_class: cn.herodotus.engine.data.jpa.hibernate.spi.cache.HerodotusRegionFactory
+        jakarta:
           cache:
             missing_cache_strategy: create
         temp:
-          use_jdbc_metadata_defaults: false
-  redis:
-    database: 3
-    host: 192.168.101.10
-    password:
-    port: 16379
-    timeout: 10000
-    # 如果使用的jedis 则将lettuce改成jedis即可
-    lettuce:
-      pool:
-        # 最大活跃链接数 默认8
-        max-active: 10
-        max-wait: 10000
-        # 最大空闲连接数 默认8
-        max-idle: 10
-        # 最小空闲连接数 默认0
-        min-idle: 5
+          use_jdbc_metadata_defaults: true
+  data:
+    redis:
+      database: 9
+      host: 192.168.101.10
+      password:
+      port: 16379
+      timeout: 10000
+      # 如果使用的jedis 则将lettuce改成jedis即可
+      lettuce:
+        pool:
+          # 最大活跃链接数 默认8
+          max-active: 10
+          max-wait: 10000
+          # 最大空闲连接数 默认8
+          max-idle: 10
+          # 最小空闲连接数 默认0
+          min-idle: 5
     redisson:
       enabled: false
       single-server-config:
-        address: redis://${spring.redis.host}:${spring.redis.port}
-  #        password: ${spring.redis.password}
+        address: redis://${spring.data.redis.host}:${spring.data.redis.port}
+  #        password: ${spring.data.redis.password}
   thymeleaf:
     mode: HTML
     cache: false
@@ -180,12 +181,12 @@ jetcache:
       valueEncoder: java
       valueDecoder: java
       poolConfig:
-        minIdle: ${spring.redis.lettuce.pool.min-idle}
-        maxIdle: ${spring.redis.lettuce.pool.max-idle}
-        maxTotal: ${spring.redis.lettuce.pool.max-active}
-        maxWait: ${spring.redis.lettuce.pool.max-wait}
+        minIdle: ${spring.data.redis.lettuce.pool.min-idle}
+        maxIdle: ${spring.data.redis.lettuce.pool.max-idle}
+        maxTotal: ${spring.data.redis.lettuce.pool.max-active}
+        maxWait: ${spring.data.redis.lettuce.pool.max-wait}
       uri:
-        - redis://${spring.redis.password}@${spring.redis.host}:${spring.redis.port}/${spring.redis.database}
+        - redis://${spring.data.redis.password}@${spring.data.redis.host}:${spring.data.redis.port}/${spring.data.redis.database}
 
 
 herodotus:
@@ -350,7 +351,7 @@ spring:
       naming:
         physical-strategy: cn.herodotus.engine.data.jpa.hibernate.HerodotusPhysicalNamingStrategy
     properties:
-      javax:
+      jakarta:
         persistence:
           sharedCache:
             mode: ENABLE_SELECTIVE
@@ -363,28 +364,29 @@ spring:
           use_query_cache: true
           use_second_level_cache: true
           region:
-            factory_class: cn.herodotus.engine.data.jpa.hibernate.cache.spi.HerodotusRegionFactory
-        javax:
+            factory_class: cn.herodotus.engine.data.jpa.hibernate.spi.cache.HerodotusRegionFactory
+        jakarta:
           cache:
             missing_cache_strategy: create
         temp:
-          use_jdbc_metadata_defaults: false
-  redis:
-    database: 3
-    host: 192.168.101.10
-    password:
-    port: 16379
-    timeout: 10000
-    # 如果使用的jedis 则将lettuce改成jedis即可
-    lettuce:
-      pool:
-        # 最大活跃链接数 默认8
-        max-active: 10
-        max-wait: 10000
-        # 最大空闲连接数 默认8
-        max-idle: 10
-        # 最小空闲连接数 默认0
-        min-idle: 5
+          use_jdbc_metadata_defaults: true
+  data:
+    redis:
+      database: 9
+      host: 192.168.101.10
+      password:
+      port: 16379
+      timeout: 10000
+      # 如果使用的jedis 则将lettuce改成jedis即可
+      lettuce:
+        pool:
+          # 最大活跃链接数 默认8
+          max-active: 10
+          max-wait: 10000
+          # 最大空闲连接数 默认8
+          max-idle: 10
+          # 最小空闲连接数 默认0
+          min-idle: 5
   thymeleaf:
     mode: HTML
     cache: false
@@ -433,12 +435,12 @@ jetcache:
       valueEncoder: java
       valueDecoder: java
       poolConfig:
-        minIdle: ${spring.redis.lettuce.pool.min-idle}
-        maxIdle: ${spring.redis.lettuce.pool.max-idle}
-        maxTotal: ${spring.redis.lettuce.pool.max-active}
-        maxWait: ${spring.redis.lettuce.pool.max-wait}
+        minIdle: ${spring.data.redis.lettuce.pool.min-idle}
+        maxIdle: ${spring.data.redis.lettuce.pool.max-idle}
+        maxTotal: ${spring.data.redis.lettuce.pool.max-active}
+        maxWait: ${spring.data.redis.lettuce.pool.max-wait}
       uri:
-        - redis://${spring.redis.password}@${spring.redis.host}:${spring.redis.port}/${spring.redis.database}
+        - redis://${spring.data.redis.password}@${spring.data.redis.host}:${spring.data.redis.port}/${spring.data.redis.database}
 
 camunda:
   bpm:
