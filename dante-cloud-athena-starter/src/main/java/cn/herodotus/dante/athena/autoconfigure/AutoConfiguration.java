@@ -22,8 +22,8 @@
 
 package cn.herodotus.dante.athena.autoconfigure;
 
-import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
 import cn.herodotus.dante.athena.kernel.configuration.AthenaKernelConfiguration;
+import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Bean;

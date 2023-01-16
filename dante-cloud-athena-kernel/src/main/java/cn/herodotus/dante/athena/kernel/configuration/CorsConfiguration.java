@@ -1,6 +1,6 @@
 package cn.herodotus.dante.athena.kernel.configuration;
 
-import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
