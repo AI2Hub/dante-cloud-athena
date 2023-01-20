@@ -32,11 +32,12 @@
     <parent>
         <groupId>cn.herodotus.dante</groupId>
         <artifactId>dependencies</artifactId>
-        <version>2.7.7.5</version>
+        <version>2.7.8.0</version>
     </parent>
 
     <artifactId>dante-cloud-athena</artifactId>
-    <version>2.7.7.5</version>
+    <groupId>cn.herodotus.dante.athena</groupId>
+    <version>2.7.8.0</version>
     <packaging>pom</packaging>
 
 
@@ -47,7 +48,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <dante.cloud.version>2.7.7.5</dante.cloud.version>
+        <dante.cloud.version>2.7.8.0</dante.cloud.version>
     </properties>
 
     <!-- 所有的子项目默认依赖 -->
@@ -62,40 +63,17 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>dante-cloud-athena-kernel</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>dante-cloud-athena-starter</artifactId>
+                <groupId>cn.herodotus.dante.athena</groupId>
+                <artifactId>athena-autoconfigure</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
     <modules>
-        <module>dante-cloud-athena-kernel</module>
-        <module>dante-cloud-athena-application</module>
-        <module>dante-cloud-athena-starter</module>
+        <module>athena-autoconfigure</module>
+        <module>athena-application</module>
     </modules>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>${maven-antrun-plugin.version}</version>
-                <configuration>
-                    <target>
-                        <echo>${project.version}</echo>
-                        <echo>${project.parent.version}</echo>
-                    </target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
     <!-- 环境 -->
     <profiles>
