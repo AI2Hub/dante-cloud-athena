@@ -37,7 +37,7 @@
 
 自11月24日，Spring Boot 3.0 以及 Spring Cloud 2022.0.0、Spring Cloud Tencent 等全新版本发布，整个Java 社区也步入的 Java 17 和 Spring Boot 3 的新时代。紧跟 Java 技术和 Spring 社区的发展，让更多质量更好、性能更优的新特性服务于实际的开发工作，Dante Cloud 也同步进行升级及适配，开发了全新的 3.0 版本。
 
-基于 Spring Authorization Server 1.0.0、Spring Boot 3.0.1、Spring Cloud 2022.0.0、Spring Cloud Tencent 1.8.2-2022.0.0、Spring Cloud Alibaba 2021.0.4.0、Nacos 2.2.0 等主流技术栈开发的 Dante Cloud v3.0.0 已经正式发布，关注请移步 [v3.0.0 分支](https://gitee.com/dromara/dante-cloud/tree/3.0.0/)
+基于 Spring Authorization Server 1.0.1、Spring Boot 3.0.3、Spring Cloud 2022.0.1、Spring Cloud Tencent 1.9.0-2022.0.1、Spring Cloud Alibaba 2021.0.4.0、Nacos 2.2.0 等主流技术栈开发的 Dante Cloud v3.0.0 已经正式发布，关注请移步 [v3.0.0 分支](https://gitee.com/dromara/dante-cloud/tree/3.0.0/)
 
 ## 企业级技术中台微服务架构与服务能力开发平台
 
