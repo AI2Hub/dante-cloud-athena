@@ -1,13 +1,27 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ * Copyright (c) 2020-2030 ZHENGGENGWEI(码匠君)<herodotus@aliyun.com>
  *
- * Copyright 2020-2030 ZHENGGENGWEI<码匠君>. All rights reserved.
+ * Dante Cloud licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * - Author: ZHENGGENGWEI<码匠君>
- * - Contact: dante@aliyun.com
- * - Blog and source code availability: https://gitee.com/dante/dante-cloud
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Dante Cloud 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
+ *
+ * 1.请不要删除和修改根目录下的LICENSE文件。
+ * 2.请不要删除和修改 Dante Cloud 源码头部的版权声明。
+ * 3.请保留源码和相关描述文件的项目出处，作者声明等。
+ * 4.分发源码时候，请注明软件出处 https://gitee.com/dromara/dante-cloud
+ * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://gitee.com/dromara/dante-cloud
+ * 6.若您的项目无法满足以上几点，可申请商业授权
  */
-
 
 -- ----------------------------
 -- Table data for oauth2_application
@@ -18,7 +32,7 @@ INSERT INTO `oauth2_application` (`application_id`, `create_time`, `ranking`, `u
 -- ----------------------------
 -- Table data for oauth2_registered_client
 -- ----------------------------
-INSERT INTO `oauth2_registered_client` (`id`, `authorization_grant_types`, `client_authentication_methods`, `client_id`, `client_id_issued_at`, `client_name`, `client_secret`, `client_secret_expires_at`, `client_settings`, `redirect_uris`, `scopes`, `token_settings`) VALUES ('dfe3e7bc-22e9-443f-a874-947494e20174', 'refresh_token,password,client_credentials,authorization_code,social_credentials', 'client_secret_post,client_secret_basic', '14a9cf797931430896ad13a6b1855611', '2022-03-18 18:51:00.373', 'dfe3e7bc-22e9-443f-a874-947494e20174', '{bcrypt}$2a$10$yMB9ze2Ny2xMa/xHSFX4H.DQkYH5gbZNRXFaPdv.MIhBbWPntZ382', '2023-12-31 00:00:00', '{"@class":"java.util.Collections$UnmodifiableMap","settings.client.require-authorization-consent":true,"settings.client.token-endpoint-authentication-signing-algorithm":["org.springframework.security.oauth2.jose.jws.SignatureAlgorithm","RS256"],"settings.client.require-proof-key":false}', 'http://192.168.101.10:3000/authorization-code', 'read-user-by-page,openid', '{"@class":"java.util.Collections$UnmodifiableMap","settings.client.require-authorization-consent":true,"settings.client.token-endpoint-authentication-signing-algorithm":["org.springframework.security.oauth2.jose.jws.SignatureAlgorithm","RS256"],"settings.client.require-proof-key":false}', 'http://192.168.101.10:3000/authorization-code', 'read-user-by-page,openid', '{"@class":"java.util.Collections$UnmodifiableMap","settings.token.reuse-refresh-tokens":true,"settings.token.id-token-signature-algorithm":["org.springframework.security.oauth2.jose.jws.SignatureAlgorithm","RS256"],"settings.token.access-token-time-to-live":["java.time.Duration",7200.000000000],"settings.token.access-token-format":{"@class":"org.springframework.security.oauth2.server.authorization.settings.OAuth2TokenFormat","value":"reference"},"settings.token.refresh-token-time-to-live":["java.time.Duration",864000.000000000],"settings.token.authorization-code-time-to-live":["java.time.Duration",300.000000000]}');
+INSERT INTO `oauth2_registered_client` (`id`, `authorization_grant_types`, `client_authentication_methods`, `client_id`, `client_id_issued_at`, `client_name`, `client_secret`, `client_secret_expires_at`, `client_settings`, `redirect_uris`, `scopes`, `token_settings`) VALUES ('dfe3e7bc-22e9-443f-a874-947494e20174', 'refresh_token,password,client_credentials,authorization_code,social_credentials', 'client_secret_post,client_secret_basic', '14a9cf797931430896ad13a6b1855611', '2022-03-18 18:51:00.373', 'dfe3e7bc-22e9-443f-a874-947494e20174', '{bcrypt}$2a$10$yMB9ze2Ny2xMa/xHSFX4H.DQkYH5gbZNRXFaPdv.MIhBbWPntZ382', '2023-12-31 00:00:00', '{"@class":"java.util.Collections$UnmodifiableMap","settings.client.require-authorization-consent":true,"settings.client.token-endpoint-authentication-signing-algorithm":["org.springframework.security.oauth2.jose.jws.SignatureAlgorithm","RS256"],"settings.client.require-proof-key":false}', 'http://192.168.101.10:3000/authorization-code', 'read-user-by-page,openid', '{"@class":"java.util.Collections$UnmodifiableMap","settings.token.reuse-refresh-tokens":true,"settings.token.id-token-signature-algorithm":["org.springframework.security.oauth2.jose.jws.SignatureAlgorithm","RS256"],"settings.token.access-token-time-to-live":["java.time.Duration",7200.000000000],"settings.token.access-token-format":{"@class":"org.springframework.security.oauth2.server.authorization.settings.OAuth2TokenFormat","value":"reference"},"settings.token.refresh-token-time-to-live":["java.time.Duration",864000.000000000],"settings.token.authorization-code-time-to-live":["java.time.Duration",300.000000000]}');
 INSERT INTO `oauth2_registered_client` (`id`, `authorization_grant_types`, `client_authentication_methods`, `client_id`, `client_id_issued_at`, `client_name`, `client_secret`, `client_secret_expires_at`, `client_settings`, `redirect_uris`, `scopes`, `token_settings`) VALUES ('422baa83-505c-436f-87b5-2a599e6d2d28', 'refresh_token,password,client_credentials,authorization_code,social_credentials', 'client_secret_post,client_secret_basic', '67601992f3574c75809a3d79888bf16e', '2022-04-02 16:26:26.776', '422baa83-505c-436f-87b5-2a599e6d2d28', '{bcrypt}$2a$10$G78qeNTKc3jIpMfrMvLaNe6uy3tVI3pUOkJxku3XIKV3GeVY.HYtG', NULL, '{"@class":"java.util.Collections$UnmodifiableMap","settings.client.require-proof-key":true,"settings.client.require-authorization-consent":true}', 'http://192.168.101.10:8847/dante-cloud-upms/open/authorized', 'read-user-by-page,openid', '{"@class":"java.util.Collections$UnmodifiableMap","settings.token.reuse-refresh-tokens":true,"settings.token.id-token-signature-algorithm":["org.springframework.security.oauth2.jose.jws.SignatureAlgorithm","RS256"],"settings.token.access-token-time-to-live":["java.time.Duration",7200.000000000],"settings.token.access-token-format":{"@class":"org.springframework.security.oauth2.server.authorization.settings.OAuth2TokenFormat","value":"reference"},"settings.token.refresh-token-time-to-live":["java.time.Duration",864000.000000000],"settings.token.authorization-code-time-to-live":["java.time.Duration",300.000000000]}');
 
 -- ----------------------------
