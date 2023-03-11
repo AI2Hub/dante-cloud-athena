@@ -28,11 +28,10 @@ INSERT INTO `oauth2_scope` (`scope_id`, `create_time`, `ranking`, `update_time`,
 INSERT INTO `oauth2_scope` (`scope_id`, `create_time`, `ranking`, `update_time`, `description`, `is_reserved`, `reversion`, `status`, `scope_code`, `scope_name`) VALUES ('bfc6105d9f0285e9550ef7aade04a2d3', '2022-04-01 22:07:23', 2, '2022-04-01 22:07:28', NULL, b'1', 0, 0, 'read-user-by-page', '获取用户信息');
 INSERT INTO `oauth2_scope` (`scope_id`, `create_time`, `ranking`, `update_time`, `description`, `is_reserved`, `reversion`, `status`, `scope_code`, `scope_name`) VALUES ('725e5456-25fa-4d47-a8fc-eaff5770200e', '2022-11-26 16:46:04.778', 0, '2022-11-26 16:46:04', '客户端创建', b'1', 0, 0, 'client.create', 'OIDC Client Registration');
 INSERT INTO `oauth2_scope` (`scope_id`, `create_time`, `ranking`, `update_time`, `description`, `is_reserved`, `reversion`, `status`, `scope_code`, `scope_name`) VALUES ('3b959f84-67ca-434c-907f-db1ab5456ffe', '2022-11-26 22:10:11.867', 0, '2022-11-26 22:10:11.867', '客户端信息读取', b'1', 0, 0, 'client.read', 'OIDC Client Read');
-
 -- ----------------------------
 -- Table data for oauth2_authority
 -- ----------------------------
-INSERT INTO `oauth2_authority` (`authority_id`, `create_time`, `ranking`, `update_time`, `description`, `is_reserved`, `reversion`, `status`, `authority_code`, `request_method`, `service_id`, `url`) VALUES ('79dd7faa3a18616ce32fa450ba32eedd', '2022-04-01 22:10:19', NULL, '2022-04-01 22:10:22', NULL, NULL, 0, 0, 'OP_835620758', 'GET', 'dante-cloud-upms', '/user');
+INSERT INTO `oauth2_authority` (`authority_id`, `create_time`, `ranking`, `update_time`, `description`, `is_reserved`, `reversion`, `status`, `authority_code`, `authority_name`) VALUES ('3', '2022-04-01 22:10:19', NULL, '2022-04-01 22:10:22', NULL, NULL, 0, 0, 'security:manage', '用户安全管理');
 
 -- ----------------------------
 -- Table data for oauth2_application_scope
@@ -47,7 +46,7 @@ INSERT INTO `oauth2_application_scope` (`application_id`, `scope_id`) VALUES ('d
 -- ----------------------------
 -- Table data for oauth2_scope_authority
 -- ----------------------------
-INSERT INTO `oauth2_scope_authority` (`scope_id`, `authority_id`) VALUES ('bfc6105d9f0285e9550ef7aade04a2d3', '79dd7faa3a18616ce32fa450ba32eedd');
+INSERT INTO `oauth2_scope_authority` (`scope_id`, `authority_id`) VALUES ('bfc6105d9f0285e9550ef7aade04a2d3', '3');
 
 -- ----------------------------
 -- Table data for sys_user
@@ -60,12 +59,36 @@ INSERT INTO `sys_user` (`user_id`, `create_time`, `ranking`, `update_time`, `des
 -- ----------------------------
 INSERT INTO `sys_role` (`role_id`, `create_time`, `ranking`, `update_time`, `description`, `is_reserved`, `reversion`, `status`, `role_code`, `role_name`) VALUES ('1', '2019-07-23 07:22:27', 1, '2019-09-11 12:04:52', '中台管理员角色', b'1', 0, 0, 'ROLE_ADMINISTRATOR', '平台管理员角色');
 INSERT INTO `sys_role` (`role_id`, `create_time`, `ranking`, `update_time`, `description`, `is_reserved`, `reversion`, `status`, `role_code`, `role_name`) VALUES ('7e43d37d-d045-445f-a1de-cb1259f7709c', '2022-07-18 20:27:46.536', 0, '2022-07-18 20:27:46.536', '人力资源管理角色', b'1', 0, 0, 'ROLE_HUMAN_RESOURCES', '人力资源管理');
+-- ----------------------------
+-- Table data for sys_permission
+-- ----------------------------
+INSERT INTO `sys_permission` (`permission_id`, `create_time`, `ranking`, `update_time`, `description`, `is_reserved`, `reversion`, `status`, `permission_code`, `permission_name`) VALUES ('1', '2023-03-08 00:03:35.765', 1, '2023-03-08 00:03:35.765', '所有角色用户都需要用到的权限', b'1', 0, 0, 'general', '通用基础权限');
+INSERT INTO `sys_permission` (`permission_id`, `create_time`, `ranking`, `update_time`, `description`, `is_reserved`, `reversion`, `status`, `permission_code`, `permission_name`) VALUES ('2', '2023-03-08 00:03:35.765', 2, '2023-03-08 00:03:35.765', '平台认证管理相关全部权限，当前为全部权限可结合实际调整细化', b'1', 0, 0, 'authentication:manage', '平台认证管理');
+INSERT INTO `sys_permission` (`permission_id`, `create_time`, `ranking`, `update_time`, `description`, `is_reserved`, `reversion`, `status`, `permission_code`, `permission_name`) VALUES ('3', '2023-03-08 00:03:35.765', 3, '2023-03-08 00:03:35.765', '用户安全管理相关全部权限，当前为全部权限可结合实际调整细化', b'1', 0, 0, 'security:manage', '用户安全管理');
+INSERT INTO `sys_permission` (`permission_id`, `create_time`, `ranking`, `update_time`, `description`, `is_reserved`, `reversion`, `status`, `permission_code`, `permission_name`) VALUES ('4', '2023-03-08 00:03:35.765', 4, '2023-03-08 00:03:35.765', '人力资源管理相关全部权限，当前为全部权限可结合实际调整细化', b'1', 0, 0, 'hr:manage', '人力资源管理');
+INSERT INTO `sys_permission` (`permission_id`, `create_time`, `ranking`, `update_time`, `description`, `is_reserved`, `reversion`, `status`, `permission_code`, `permission_name`) VALUES ('5', '2023-03-08 00:03:35.765', 5, '2023-03-08 00:03:35.765', '工作流等管理相关全部权限，当前为全部权限可结合实际调整细化', b'1', 0, 0, 'workflow:manage', '工作流程管理');
+INSERT INTO `sys_permission` (`permission_id`, `create_time`, `ranking`, `update_time`, `description`, `is_reserved`, `reversion`, `status`, `permission_code`, `permission_name`) VALUES ('6', '2023-03-08 00:03:35.765', 6, '2023-03-08 00:03:35.765', '运维配置管理相关全部权限，当前为全部权限可结合实际调整细化', b'1', 0, 0, 'cmdb:manage', '运维配置应用');
+INSERT INTO `sys_permission` (`permission_id`, `create_time`, `ranking`, `update_time`, `description`, `is_reserved`, `reversion`, `status`, `permission_code`, `permission_name`) VALUES ('7', '2023-03-08 00:03:35.765', 7, '2023-03-08 00:03:35.765', '外部接入应用相关全部权限，当前为全部权限可结合实际调整细化', b'1', 0, 0, 'external:manage', '外部接入应用');
 
 -- ----------------------------
 -- Table data for sys_user_role
 -- ----------------------------
 INSERT INTO `sys_user_role` (`user_id`, `role_id`) VALUES ('1', '1');
 INSERT INTO `sys_user_role` (`user_id`, `role_id`) VALUES ('33e781c5-31e0-4ea4-8b02-1236bde96436', '7e43d37d-d045-445f-a1de-cb1259f7709c');
+
+-- ----------------------------
+-- Table data for sys_role_permission
+-- ----------------------------
+INSERT INTO `sys_role_permission` (`role_id`, `permission_id`) VALUES ('1', '1');
+INSERT INTO `sys_role_permission` (`role_id`, `permission_id`) VALUES ('1', '2');
+INSERT INTO `sys_role_permission` (`role_id`, `permission_id`) VALUES ('1', '3');
+INSERT INTO `sys_role_permission` (`role_id`, `permission_id`) VALUES ('1', '4');
+INSERT INTO `sys_role_permission` (`role_id`, `permission_id`) VALUES ('1', '5');
+INSERT INTO `sys_role_permission` (`role_id`, `permission_id`) VALUES ('1', '6');
+INSERT INTO `sys_role_permission` (`role_id`, `permission_id`) VALUES ('1', '7');
+INSERT INTO `sys_role_permission` (`role_id`, `permission_id`) VALUES ('7e43d37d-d045-445f-a1de-cb1259f7709c', '1');
+INSERT INTO `sys_role_permission` (`role_id`, `permission_id`) VALUES ('7e43d37d-d045-445f-a1de-cb1259f7709c', '4');
+INSERT INTO `sys_role_permission` (`role_id`, `permission_id`) VALUES ('faccc981-7cd4-4333-9ef9-93752eb186bd', '1');
 
 -- ----------------------------
 -- Table data for sys_default_role
@@ -251,25 +274,70 @@ INSERT INTO `sys_element_role` (`element_id`, `role_id`) VALUES ('12e7245e-bcb0-
 INSERT INTO `sys_element_role` (`element_id`, `role_id`) VALUES ('3b83534e-016f-4e22-9553-5d8b96f29146', '1');
 
 -- ----------------------------
--- Import all authority which not exist in sys_authority for admin role
+-- Table data for sys_interface_authority
 -- ----------------------------
-INSERT INTO `sys_role_authority` (role_id, authority_id)
-SELECT '1' role_id,
-       sa.authority_id
-FROM `sys_authority` sa
-WHERE NOT EXISTS(SELECT sa.authority_id FROM sys_role_authority sra WHERE sra.authority_id = sa.authority_id);
-
--- ----------------------------
--- Import all authority  for test role
--- ----------------------------
-    INSERT INTO `sys_role_authority` (role_id, authority_id)
-SELECT '7e43d37d-d045-445f-a1de-cb1259f7709c' role_id,
-       sa.authority_id
-FROM `sys_authority` sa
-WHERE sa.url = '/element/tree'
-   OR sa.url = '/oauth2/sign-out'
-   OR sa.url LIKE '%enum%'
-   OR sa.url LIKE '%employee%'
-   OR sa.url LIKE '%department%'
-   OR sa.url LIKE '%organization%'
-   OR sa.url LIKE '%ownership%';
+INSERT INTO `sys_attribute_permission` ( attribute_id, permission_id ) SELECT
+    st.attribute_id,
+    st.permission_id
+FROM
+    (
+    SELECT
+    '1' AS permission_id,
+    sa.attribute_id
+    FROM
+    `sys_interface` sa
+    WHERE
+    sa.url = '/security/element/tree'
+    OR sa.url = '/oauth2/sign-out'
+    OR sa.url LIKE'%enum%'
+    OR sa.url LIKE'%message%'
+    OR sa.url LIKE'%dialogue%'
+    OR sa.url LIKE'%websocket%'
+    OR sa.url LIKE'%notification%' UNION
+    SELECT
+    '2' AS permission_id,
+    sa.attribute_id
+    FROM
+    `sys_interface` sa
+    WHERE
+    sa.url LIKE'%authorize%'
+    AND sa.url != '/authorize/constant/enums' UNION
+    SELECT
+    '3' AS permission_id,
+    sa.attribute_id
+    FROM
+    `sys_interface` sa
+    WHERE
+    sa.url LIKE'%security%'
+    AND sa.url != '/security/element/tree' UNION
+    SELECT
+    '4' AS permission_id,
+    sa.attribute_id
+    FROM
+    `sys_interface` sa
+    WHERE
+    sa.url LIKE'%hr%' UNION
+    SELECT
+    '5' AS permission_id,
+    sa.attribute_id
+    FROM
+    `sys_interface` sa
+    WHERE
+    sa.url LIKE'%camunda-extended%' UNION
+    SELECT
+    '6' AS permission_id,
+    sa.attribute_id
+    FROM
+    `sys_interface` sa
+    WHERE
+    sa.url LIKE'%db%'
+    OR sa.url LIKE'%asset%' UNION
+    SELECT
+    '7' AS permission_id,
+    sa.attribute_id
+    FROM
+    `sys_interface` sa
+    WHERE
+    sa.url LIKE'%meteorology%'
+    OR sa.url LIKE'%satellite%'
+    ) AS st;
