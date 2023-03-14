@@ -1,2 +1,3 @@
 cn.herodotus.dante.athena.autoconfigure.configuration.AthenaConfiguration
-cn.herodotus.dante.module.upms.rest.configuration.UpmsRestModuleConfiguration
+cn.herodotus.dante.module.metadata.configuration.MetadataModuleConfiguration
+cn.herodotus.engine.supplier.message.configuration.SupplierMessageConfiguration
