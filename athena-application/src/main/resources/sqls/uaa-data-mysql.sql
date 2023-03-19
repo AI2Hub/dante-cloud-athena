@@ -60,6 +60,8 @@ INSERT INTO `sys_user` (`user_id`, `create_time`, `ranking`, `update_time`, `des
 -- ----------------------------
 INSERT INTO `sys_role` (`role_id`, `create_time`, `ranking`, `update_time`, `description`, `is_reserved`, `reversion`, `status`, `role_code`, `role_name`) VALUES ('1', '2019-07-23 07:22:27', 1, '2019-09-11 12:04:52', '中台管理员角色', b'1', 0, 0, 'ROLE_ADMINISTRATOR', '平台管理员角色');
 INSERT INTO `sys_role` (`role_id`, `create_time`, `ranking`, `update_time`, `description`, `is_reserved`, `reversion`, `status`, `role_code`, `role_name`) VALUES ('7e43d37d-d045-445f-a1de-cb1259f7709c', '2022-07-18 20:27:46.536', 0, '2022-07-18 20:27:46.536', '人力资源管理角色', b'1', 0, 0, 'ROLE_HUMAN_RESOURCES', '人力资源管理');
+INSERT INTO `sys_role` (`role_id`, `create_time`, `ranking`, `update_time`, `description`, `is_reserved`, `reversion`, `status`, `role_code`, `role_name`) VALUES ('faccc981-7cd4-4333-9ef9-93752eb186bd', '2023-02-27 21:54:33.723', 0, '2023-02-27 21:54:33', '一般用户角色', b'1', 0, 0, 'ROLE_NORMAL', '普通用户角色');
+
 -- ----------------------------
 -- Table data for sys_permission
 -- ----------------------------
@@ -303,7 +305,7 @@ FROM
     '1' AS permission_id,
     sa.attribute_id
     FROM
-    `sys_interface` sa
+    `sys_attribute` sa
     WHERE
     sa.url = '/security/element/tree'
     OR sa.url = '/oauth2/sign-out'
@@ -313,7 +315,7 @@ FROM
     '2' AS permission_id,
     sa.attribute_id
     FROM
-    `sys_interface` sa
+    `sys_attribute` sa
     WHERE
     sa.url LIKE'%authorize%'
     AND sa.url != '/authorize/constant/enums' UNION
@@ -321,7 +323,7 @@ FROM
     '3' AS permission_id,
     sa.attribute_id
     FROM
-    `sys_interface` sa
+    `sys_attribute` sa
     WHERE
     sa.url LIKE'%security%'
     AND sa.url != '/security/element/tree' UNION
@@ -329,21 +331,21 @@ FROM
     '4' AS permission_id,
     sa.attribute_id
     FROM
-    `sys_interface` sa
+    `sys_attribute` sa
     WHERE
     sa.url LIKE'%hr%' UNION
     SELECT
     '5' AS permission_id,
     sa.attribute_id
     FROM
-    `sys_interface` sa
+    `sys_attribute` sa
     WHERE
     sa.url LIKE'%camunda-extended%' UNION
     SELECT
     '6' AS permission_id,
     sa.attribute_id
     FROM
-    `sys_interface` sa
+    `sys_attribute` sa
     WHERE
     sa.url LIKE'%db%'
     OR sa.url LIKE'%asset%' UNION
@@ -351,7 +353,7 @@ FROM
     '7' AS permission_id,
     sa.attribute_id
     FROM
-    `sys_interface` sa
+    `sys_attribute` sa
     WHERE
     sa.url LIKE'%meteorology%'
     OR sa.url LIKE'%satellite%'
