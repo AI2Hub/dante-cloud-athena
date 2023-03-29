@@ -1,6 +1,6 @@
 <p align="center"><img src="./readme/new-logo.png" height="300" width="400" alt="logo"/></p>
 <h2 align="center">简洁优雅 · 稳定高效 | 宁静致远 · 精益求精 </h2>
-<h4 align="center">基于 Spring Authorization Server 全新适配 OAuth 2.1 协议的企业级微服务架构</h4>
+<h4 align="center">基于 Spring Authorization Server 全面适配 OAuth 2.1 协议的企业级微服务架构</h4>
 
 ---
 
@@ -37,18 +37,20 @@
 ## 重要说明
 
 自11月24日，Spring Boot 3.0 以及 Spring Cloud 2022.0.0、Spring Cloud Tencent 等全新版本发布，整个Java 社区也步入的 Java 17
-和 Spring Boot 3 的新时代。紧跟 Java 技术和 Spring 社区的发展，让更多质量更好、性能更优的新特性服务于实际的开发工作，Dante
+和 Spring Boot 3 的新时代。
+
+紧跟 Java 技术和 Spring 社区的发展，让更多质量更好、性能更优的新特性服务于实际的开发工作，Dante
 Cloud 也同步进行升级及适配，开发了全新的 3.0 版本。
 
 基于 Spring Authorization Server 1.1.0、Spring Boot 3.0.5、Spring Cloud 2022.0.1、Spring Cloud Tencent
-1.9.0-2022.0.1、Spring Cloud Alibaba 2021.0.5.0、Nacos 2.2.1 等主流技术栈开发的 Dante Cloud v3.0.0
-已经正式发布，关注请移步 [v3.0.0 分支](https://gitee.com/dromara/dante-cloud/tree/3.0.0/)
+1.10.2-2022.0.1、Spring Cloud Alibaba 2021.0.5.0、Nacos 2.2.1 等主流技术栈开发的 Dante Cloud v3.0.0
+已经正式发布，关注请移步 [【v3.0.0 分支】](https://gitee.com/dromara/dante-cloud/tree/3.0.0/)
 
 ## 企业级技术中台微服务架构与服务能力开发平台
 
-Dante Cloud  (但丁，原 Eurynome Cloud) 是一款企业级微服务架构和服务能力开发平台，是采用领域驱动模型(DDD)设计思想的、全面拥抱
+Dante Cloud  (但丁，原 Eurynome Cloud) 是一款企业级微服务架构和服务能力开发平台，是采用领域驱动设计(DDD)的、全面拥抱
 Spring Authorization Server 的、基于 OAuth2.1 协议的微服务架构。基于 Spring Boot 2.7.10、Spring Cloud 2021.0.6、Spring Cloud
-Alibaba 2021.0.5.0、Spring Authorization Server 0.4.0、Nacos 2.2.1 等最新版本开发，遵循 SpringBoot
+Alibaba 2021.0.5.0、Spring Authorization Server 0.4.1、Nacos 2.2.1 等最新版本开发，遵循 SpringBoot
 编程思想，高度模块化和可配置化。具备服务发现、配置、熔断、限流、降级、监控、多级缓存、分布式事务、工作流、多租户等功能，代码简洁，架构清晰，非常适合学习和企业作为基础框架使用。
 
 ## 平台定位
@@ -67,18 +69,11 @@ Alibaba 2021.0.5.0、Spring Authorization Server 0.4.0、Nacos 2.2.1 等最新�
 5. 充份利用 Component、Hooks 以及 Typescript 面向对象等特性，抽取通用组件和代码，尽可能降低工程重复代码。
 6. 对较多 Quasar 基础组件和应用功能组件进行封装，以方便代码的统一修改维护和开发使用。
 7. 对生产模式下，对基于 Vite3 的工程打包进行深度性能优化。
-8. 提供以 docker-compose 方式，对工程生产代码进行容器化打包和部署。
-
-## 前端额外说明
-
-基于 pnpm 的 monorepo 模式新版前端应用，预览尝鲜版已发布
-
-- 该版本基于 pnpm，采用 monorepo 模式对前端工程进行重构。构建 monorepo 版本前端，是为扩展更多功能、增加应用级功能做铺垫
-- 抽取 utils、components、apis、bpmn-designer 等相关代码，形成共享模块。
-- 共享模块已进行优化配置，可编译成独立的组件，单独以组件形式进行发布。
-- 代码以共享模块的方式进行单独维护开发，降低现有工程代码复杂度，便于后续功能的扩展和代码的复用。
-
-> 想要尝鲜 pnpm monorepo 版本前端，请检出 dante-cloud-ui 工程中，monorepo 分支代码。
+8. 提供以 docker-compose 方式，对工程生产代码进行容器化打包和部署。 
+9. 该版本基于 pnpm，采用 monorepo 模式对前端工程进行重构。构建 monorepo 版本前端，是为扩展更多功能、增加应用级功能做铺垫 
+10. 抽取 utils、components、apis、bpmn-designer 等相关代码，形成共享模块。 
+11. 共享模块已进行优化配置，可编译成独立的组件，单独以组件形式进行发布。 
+12. 代码以共享模块的方式进行单独维护开发，降低现有工程代码复杂度，便于后续功能的扩展和代码的复用。
 
 ## 新版后端特点
 
@@ -117,14 +112,14 @@ Alibaba 2021.0.5.0、Spring Authorization Server 0.4.0、Nacos 2.2.1 等最新�
 
 ## 后端额外说明
 
-1. 本项目以后将主要维护 `Spring Authorization Server` 版本，原有基于 `Spring Security OAuth2` 的版本已经移至
+1. 本项目目前将主要维护 `Spring Authorization Server` 版本，原有基于 `Spring Security OAuth2` 的版本已经移至
    spring-security-oauth2 分支，可以从该分支或发行版页面获取历史版本继续使用。后期会根据 ISSUE
    以及使用用户反馈情况，再行决定是否继续维护 `Spring Security OAuth2` 版本。
 2. 基于 Vue3、Vite3、Vuetify3、Pinia 等新版前端已发布，原有基于 Vue2、Vuetify2、Typescript 开发的前端代码已移至
    vue2+vuetify2+typescript 分支
-3. 自 2.7.2.3 版本起，Dante Cloud 所有核心代码全部开源。
+3. **自 2.7.2.3 版本起，Dante Cloud 所有核心代码全部开源**
 
-- 新开放内容包括：
+- 新增开源内容包括：
 
     - 接口权限鉴权：全面整合 `@PreAuthorize` 注解权限与 `URL` 权限，通过后端动态配置，无须在代码中配置 `Spring Security`
       权限注解以及权限方法，即可实现接口鉴权以及权限的动态修改。采用分布式鉴权方案，规避 Gateway 统一鉴权的压力以及重复鉴权问题
@@ -187,9 +182,9 @@ Alibaba 2021.0.5.0、Spring Authorization Server 0.4.0、Nacos 2.2.1 等最新�
 | `Spring Boot`                 | 2.7.10 / 3.0.5              |
 | `Spring Cloud`                | 2021.0.6 / 2022.0.1         |
 | `Spring Cloud Alibaba`        | 2021.0.5.0 / 2022.0.0.0-RC1 |
-| `Spring Cloud Tencent`        | 1.9.0-2022.0.1              |
+| `Spring Cloud Tencent`        | 1.10.2-2022.0.1             |
 | `Spring Authorization Server` | 0.4.1 / 1.1.0               |
-| `Spring Boot Admin`           | 2.7.10 / 3.0.0              |
+| `Spring Boot Admin`           | 2.7.10 / 3.0.2              |
 | `Nacos`                       | 2.2.1                       |
 | `Sentinel`                    | 1.8.5                       |
 | `Seata`                       | 1.5.2                       |
@@ -220,7 +215,7 @@ Alibaba 2021.0.5.0、Spring Authorization Server 0.4.0、Nacos 2.2.1 等最新�
 ### (3) 前端工程技术栈
 
 - Vue3
-- Vite3
+- Vite4
 - Pinia
 - Typescript
 - Quasar2
