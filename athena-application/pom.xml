@@ -28,11 +28,11 @@
     <parent>
         <groupId>cn.herodotus.dante.athena</groupId>
         <artifactId>dante-cloud-athena</artifactId>
-        <version>3.0.5.2</version>
+        <version>3.0.5.3</version>
     </parent>
 
     <artifactId>athena-application</artifactId>
-    <version>3.0.5.2</version>
+    <version>3.0.5.3</version>
     <packaging>jar</packaging>
 
     <name>athena-application</name>
