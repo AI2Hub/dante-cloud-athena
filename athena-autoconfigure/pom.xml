@@ -29,11 +29,11 @@
     <parent>
         <artifactId>dante-cloud-athena</artifactId>
         <groupId>cn.herodotus.dante.athena</groupId>
-        <version>3.0.5.4</version>
+        <version>3.0.5.5</version>
     </parent>
 
     <artifactId>athena-autoconfigure</artifactId>
-    <version>3.0.5.4</version>
+    <version>3.0.5.5</version>
     <packaging>jar</packaging>
 
     <dependencies>
