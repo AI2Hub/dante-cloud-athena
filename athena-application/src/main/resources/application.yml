@@ -25,7 +25,9 @@ spring:
       ok:
         enabled: false
   session:
-    store-type: redis
+    redis:
+      repository-type: indexed
+      save-mode: always
 
 jasypt:
   encryptor:
