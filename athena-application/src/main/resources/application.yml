@@ -194,9 +194,9 @@ jetcache:
 herodotus:
   platform:
     architecture: monocoque
-    swagger:
-      # Swagger中不知道哪里包含Kafka的注解，会自动启动，如果不连接到Kafka会导致启动失败。暂时没有解决，先取消掉。
-      enabled: true
+  swagger:
+    # Swagger中不知道哪里包含Kafka的注解，会自动启动，如果不连接到Kafka会导致启动失败。暂时没有解决，先取消掉。
+    enabled: true
   endpoint:
     issuer-uri: http://localhost:${server.port}
     gateway-service-uri: ${herodotus.endpoint.issuer-uri}
