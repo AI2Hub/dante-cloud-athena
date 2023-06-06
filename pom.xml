@@ -32,12 +32,12 @@
     <parent>
         <groupId>cn.herodotus.dante</groupId>
         <artifactId>dependencies</artifactId>
-        <version>3.1.0.3</version>
+        <version>3.1.0.4</version>
     </parent>
 
     <groupId>cn.herodotus.dante.athena</groupId>
     <artifactId>dante-cloud-athena</artifactId>
-    <version>3.1.0.3</version>
+    <version>3.1.0.4</version>
     <packaging>pom</packaging>
 
 
@@ -48,7 +48,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <dante.cloud.version>3.1.0.3</dante.cloud.version>
+        <dante.cloud.version>3.1.0.4</dante.cloud.version>
     </properties>
 
     <!-- 所有的子项目默认依赖 -->
