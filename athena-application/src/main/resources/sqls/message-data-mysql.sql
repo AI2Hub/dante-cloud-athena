@@ -360,4 +360,5 @@ FROM
         `sys_attribute` sa
     WHERE
         sa.url LIKE'%oss%'
+      AND sa.url != '/oss/minio/constant/enums'
     ) AS st;

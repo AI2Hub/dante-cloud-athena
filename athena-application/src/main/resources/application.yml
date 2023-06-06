@@ -202,6 +202,7 @@ herodotus:
     gateway-service-uri: ${herodotus.endpoint.issuer-uri}
     uaa-service-uri: ${herodotus.endpoint.issuer-uri}
     upms-service-uri: ${herodotus.endpoint.issuer-uri}
+    oss-service-uri: ${herodotus.endpoint.issuer-uri}
     access-token-uri: ${herodotus.endpoint.issuer-uri}/oauth2/token
   rest:
     scan:
@@ -269,6 +270,8 @@ herodotus:
       endpoint: http://127.0.0.1:9000
       access-key: herodotus
       secret-key: herodotus
+      open-proxy: true
+      server-endpoint: ${herodotus.endpoint.oss-service-uri}
   nosql:
     couchdb:
       endpoint: http://127.0.0.1:5984
