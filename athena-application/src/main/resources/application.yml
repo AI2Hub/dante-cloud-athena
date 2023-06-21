@@ -20,10 +20,6 @@ spring:
     redis:
       repositories:
         enabled: false
-  cloud:
-    httpclientfactories:
-      ok:
-        enabled: false
   session:
     redis:
       repository-type: indexed
@@ -86,6 +82,7 @@ spring:
         maintainTimeStats: false
   jpa:
     database: postgresql
+    database-platform: ${spring.jpa.database}
     generate-ddl: true
     open-in-view: true
     hibernate:
@@ -208,10 +205,9 @@ herodotus:
     scan:
       enabled: true
   cache:
-    expires:
-      data-upms-sys-employee:
-        duration: 2
-        unit: hours
+    instances:
+      data-upms-sys-employee-:
+        expire: 2h
   captcha:
     graphics:
       letter: num_and_upper_char
@@ -223,68 +219,31 @@ herodotus:
     default-channel: ALIYUN
     aliyun:
       enabled: true
-      access-key-id: LTAIbpBuZTocddot
-      access-key-secret: qqTHQOJRlc7BSqPJMjHnftGH4vmW2W
+      access-key-id: LTAIbpBuZdddd
+      access-key-secret: qqTHQOJRlc7ddd
       region-id: cn-shanghai
-      sign-name: braineex
+      sign-name: bradddd
       version: 2017-05-25
-      templates: { "VERIFICATION_CODE": "SMS_180052229" }
-    recluse:
-      enabled: true
-      username: aaa
-      password: bbb
-      cm:
-        host: 192.168.101.10
-        port: 8888
-      ws:
-        host: 192.168.101.10
-        port: 9999
-      templates: { "VERIFICATION_CODE": "VERIFICATION_CODE" }
+      templates: { "VERIFICATION_CODE": "SMS_1800" }
   access:
     justauth:
       enabled: true
       configs:
         GITEE:
-          client-id: 7c1623d76f3909757912338688cae8a061e241b5607
-          client-secret: 8c343cad9ca732d54242f002d254239e17b68ca
+          client-id: 7c1623d76f39097579ddcae8a061
+          client-secret: 8c343cad9ca732d54242f
           redirect-uri: http://aw255/social/oauth2/callback/GITEE
         OSCHINA:
-          client-id: 7c1623d76f3909757912338688cae8a061e2
-          client-secret: 8c343cad9ca732d54242f002d254239e1
+          client-id: 7c1623d76f39097579123e8
+          client-secret: 8c343cad9ca732d54242f002
           redirect-uri: http://192.168.101.10:8847/herodotus-cloud-uaa/oauth/social/gitee
-  pay:
-    alipay:
-      enabled: true
-      sandbox: true
-      cert-mode: false
-      default-profile: sandbox
-      return-url: http://aw255fkfqy5m.ngrok2.xiaomiqiu.cn/open/pay/alipay/return
-      notify-url: http://aw255fkfqy5m.ngrok2.xiaomiqiu.cn/open/pay/alipay/notify
-      profiles:
-        sandbox:
-          app-id: 2021000118687269
-          app-private-key: MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCQ9fVJ8NxA
-          alipay-public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArAGFETKzeqJ2oYP
   oss:
     minio:
       endpoint: http://127.0.0.1:9000
       access-key: herodotus
       secret-key: herodotus
-      open-proxy: true
-      server-endpoint: ${herodotus.endpoint.oss-service-uri}
-  nosql:
-    couchdb:
-      endpoint: http://127.0.0.1:5984
-      username: herodotus
-      password: herodotus
-  multi-tenancy:
-    enabled: false
-    data-sources:
-      TENANT01:
-        driver-class-name: com.p6spy.engine.spy.P6SpyDriver
-        url: jdbc:p6spy:postgresql://localhost:15432/athena
-        username: athena
-        password: athena
+      use-proxy: true
+      proxy-source-endpoint: http://localhost:3000/api
 
 logging:
   file:
@@ -348,6 +307,7 @@ spring:
         maintainTimeStats: false
   jpa:
     database: mysql
+    database-platform: ${spring.jpa.database}
     generate-ddl: true
     open-in-view: true
     hibernate:
@@ -361,7 +321,7 @@ spring:
           sharedCache:
             mode: ENABLE_SELECTIVE
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.MySQLDialect
         format_sql: false
         show_sql: false
         generate_statistics: false
@@ -377,7 +337,7 @@ spring:
           use_jdbc_metadata_defaults: true
   data:
     redis:
-      database: 9
+      database: 4
       host: 192.168.101.10
       password:
       port: 16379
@@ -447,22 +407,12 @@ jetcache:
       uri:
         - redis://${spring.data.redis.password}@${spring.data.redis.host}:${spring.data.redis.port}/${spring.data.redis.database}
 
-camunda:
-  bpm:
-    database:
-      type: postgres
-      schema-update: false
-    jpa:
-      enabled: true
-    job-execution:
-      enabled: false
-
 herodotus:
   platform:
     architecture: monocoque
-    swagger:
-      # Swagger中不知道哪里包含Kafka的注解，会自动启动，如果不连接到Kafka会导致启动失败。暂时没有解决，先取消掉。
-      enabled: false
+  swagger:
+    # Swagger中不知道哪里包含Kafka的注解，会自动启动，如果不连接到Kafka会导致启动失败。暂时没有解决，先取消掉。
+    enabled: false
   endpoint:
     issuer-uri: http://localhost:${server.port}
     gateway-service-uri: ${herodotus.endpoint.issuer-uri}
@@ -473,11 +423,9 @@ herodotus:
     scan:
       enabled: true
   cache:
-    clear-remote-on-exit: true
-    expires:
-      data-upms-sys-employee:
-        duration: 2
-        unit: hours
+    instances:
+      data-upms-sys-employee-:
+        expire: 2h
   captcha:
     graphics:
       letter: num_and_upper_char
@@ -501,14 +449,6 @@ herodotus:
           - client-id: 7c1623d76f3909757912338688cae8a061e2
           - client-secret: 8c343cad9ca732d54242f002d254239e17b
           - redirect-uri: http://192.168.101.10:8847/dante-cloud-uaa/oauth/social/gitee
-  multi-tenancy:
-    enabled: false
-    data-sources:
-      TENANT01:
-        driver-class-name: com.p6spy.engine.spy.P6SpyDriver
-        url: jdbc:p6spy:postgresql://localhost:15432/athena
-        username: athena
-        password: athena
 
 logging:
   level:
