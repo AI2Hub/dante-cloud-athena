@@ -238,12 +238,18 @@ herodotus:
           client-secret: 8c343cad9ca732d54242f002
           redirect-uri: http://192.168.101.10:8847/herodotus-cloud-uaa/oauth/social/gitee
   oss:
+    dialect: minio
+    proxy:
+      source: http://localhost:3000/api
+      destination: http://127.0.0.1:9000
     minio:
       endpoint: http://127.0.0.1:9000
       access-key: herodotus
       secret-key: herodotus
-      use-proxy: true
-      proxy-source-endpoint: http://localhost:3000/api
+    s3:
+      endpoint: http://127.0.0.1:9000
+      access-key: herodotus
+      secret-key: herodotus
 
 logging:
   file:
@@ -449,6 +455,19 @@ herodotus:
           - client-id: 7c1623d76f3909757912338688cae8a061e2
           - client-secret: 8c343cad9ca732d54242f002d254239e17b
           - redirect-uri: http://192.168.101.10:8847/dante-cloud-uaa/oauth/social/gitee
+  oss:
+    dialect: minio
+    proxy:
+      source: http://localhost:3000/api
+      destination: http://127.0.0.1:9000
+    minio:
+      endpoint: http://127.0.0.1:9000
+      access-key: herodotus
+      secret-key: herodotus
+    s3:
+      endpoint: http://127.0.0.1:9000
+      access-key: herodotus
+      secret-key: herodotus
 
 logging:
   level:
