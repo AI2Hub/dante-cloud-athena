@@ -308,7 +308,6 @@ INSERT INTO "sys_element_role" ("element_id", "role_id") VALUES ('8ed3e85b-235c-
 INSERT INTO "sys_element_role" ("element_id", "role_id") VALUES ('5b4ab829-1087-4ead-9368-83b388386c5c', '1');
 INSERT INTO "sys_element_role" ("element_id", "role_id") VALUES ('be8c12e4-4de5-406e-bc9d-5a7dac2c0a10', '1');
 INSERT INTO "sys_element_role" ("element_id", "role_id") VALUES ('269d5202-faea-401a-80be-c10fb71b1c44', '1');
-INSERT INTO "sys_element_role" ("element_id", "role_id") VALUES ('269d5202-faea-401a-80be-c10fb71b1c44', '1');
 INSERT INTO "sys_element_role" ("element_id", "role_id") VALUES ('055ceade-50ee-4f26-a816-f99ca408960b', '1');
 
 -- ----------------------------
