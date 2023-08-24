@@ -53,7 +53,7 @@ spring:
 
   datasource:
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
-    url: jdbc:p6spy:postgresql://localhost:15432/athena
+    url: jdbc:p6spy:postgresql://localhost:15432/dante_athena_v2
     username: athena
     password: athena
     type: com.zaxxer.hikari.HikariDataSource
@@ -112,7 +112,7 @@ spring:
         temp:
           use_jdbc_metadata_defaults: false
   redis:
-    database: 3
+    database: 9
     host: 192.168.101.10
     password:
     port: 16379
