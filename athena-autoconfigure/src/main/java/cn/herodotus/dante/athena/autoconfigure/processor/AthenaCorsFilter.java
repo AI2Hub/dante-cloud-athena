@@ -30,21 +30,21 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
 /**
- * <p>Description: TODO </p>
+ * <p>Description: Dante Cloud 单体版本 CORS 配置 </p>
  *
  * @author : gengwei.zheng
  * @date : 2021/9/20 15:27
  */
-@Configuration
+@Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class AthenaCorsFilter implements Filter {
 
