@@ -26,13 +26,14 @@
 package cn.herodotus.dante.athena.autoconfigure.processor;
 
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.core.utils.HeadersUtils;
+import com.google.common.net.HttpHeaders;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 
@@ -51,12 +52,7 @@ public class AthenaCorsFilter implements Filter {
     private FilterConfig filterConfig;
     private static final String[] ACCESS_CONTROL_ALLOW_METHODS = new String[]{HttpMethod.GET.name(), HttpMethod.POST.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name(), HttpMethod.OPTIONS.name()};
 
-    private static final String[] ACCESS_CONTROL_ALLOW_HEADERS = new String[]{"x-requested-with", "authorization", "Content-Type", "Authorization", "credential", "X-XSRF-TOKEN", "X-Herodotus-Session", "X-Herodotus-Tenant-Id"};
-
-    @Override
-    public void destroy() {
-
-    }
+    private static final String[] ACCESS_CONTROL_ALLOW_HEADERS = new String[]{HttpHeaders.X_REQUESTED_WITH, HttpHeaders.AUTHORIZATION, HttpHeaders.CONTENT_TYPE, "X-XSRF-TOKEN", HeadersUtils.X_HERODOTUS_SESSION_ID, HeadersUtils.X_HERODOTUS_TENANT_ID};
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException {
@@ -77,7 +73,13 @@ public class AthenaCorsFilter implements Filter {
     }
 
     @Override
+    public void destroy() {
+        Filter.super.destroy();
+    }
+
+    @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         this.filterConfig = filterConfig;
+        Filter.super.init(filterConfig);
     }
 }
