@@ -2,7 +2,7 @@ server:
   port: 8847
   servlet:
     session:
-      timeout: 1800
+      timeout: 2h
   error:
     include-exception: true
     include-message: always
@@ -21,9 +21,11 @@ spring:
       repositories:
         enabled: false
   session:
+    timeout: ${server.servlet.session.timeout}
     redis:
       repository-type: indexed
       save-mode: always
+      flush-mode: immediate
 
 jasypt:
   encryptor:
