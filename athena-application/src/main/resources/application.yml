@@ -12,7 +12,7 @@ spring:
   application:
     name:  @artifactId@
   profiles:
-    active: postgresql
+    active: mysql8
   main:
     allow-bean-definition-overriding: true
     log-startup-info: false
@@ -363,7 +363,6 @@ spring:
   thymeleaf:
     mode: HTML
     cache: false
-    prefix: classpath:/templates
   security:
     oauth2:
       resourceserver:
@@ -380,8 +379,9 @@ springdoc:
     show-common-extensions: true
     show-extensions: true
     oauth:
-      use-pkce-with-authorization-code-grant: true
+      use-pkce-with-authorization-code-grant: false
       app-name: ${spring.application.name}
+
 
 mybatis-plus:
   global-config:
@@ -415,6 +415,7 @@ jetcache:
       uri:
         - redis://${spring.data.redis.password}@${spring.data.redis.host}:${spring.data.redis.port}/${spring.data.redis.database}
 
+
 herodotus:
   platform:
     architecture: monocoque
@@ -426,6 +427,7 @@ herodotus:
     gateway-service-uri: ${herodotus.endpoint.issuer-uri}
     uaa-service-uri: ${herodotus.endpoint.issuer-uri}
     upms-service-uri: ${herodotus.endpoint.issuer-uri}
+    oss-service-uri: ${herodotus.endpoint.issuer-uri}
     access-token-uri: ${herodotus.endpoint.issuer-uri}/oauth2/token
   rest:
     scan:
@@ -440,23 +442,29 @@ herodotus:
       font: action
   sms:
     enabled: true
+    sandbox: true
+    test-code: 12345678
     default-channel: ALIYUN
     aliyun:
       enabled: true
-      access-key-id: XXXXXXX
-      access-key-secret: XXXXX
+      access-key-id: LTAIbpBuZdddd
+      access-key-secret: qqTHQOJRlc7ddd
       region-id: cn-shanghai
-      sign-name: bbbbbbbb
+      sign-name: bradddd
       version: 2017-05-25
-      templates: { "VERIFICATION_CODE": "SMS_22222222" }
+      templates: { "VERIFICATION_CODE": "SMS_1800" }
   access:
     justauth:
       enabled: true
       configs:
         GITEE:
-          - client-id: 7c1623d76f3909757912338688cae8a061e2
-          - client-secret: 8c343cad9ca732d54242f002d254239e17b
-          - redirect-uri: http://192.168.101.10:8847/dante-cloud-uaa/oauth/social/gitee
+          client-id: 7c1623d76f39097579ddcae8a061
+          client-secret: 8c343cad9ca732d54242f
+          redirect-uri: http://aw255/social/oauth2/callback/GITEE
+        OSCHINA:
+          client-id: 7c1623d76f39097579123e8
+          client-secret: 8c343cad9ca732d54242f002
+          redirect-uri: http://192.168.101.10:8847/herodotus-cloud-uaa/oauth/social/gitee
   oss:
     dialect: minio
     proxy:
@@ -472,6 +480,8 @@ herodotus:
       secret-key: herodotus
 
 logging:
+  file:
+    name: logs/herodotus-cloud-athena.log
   level:
     root: info
     org.springframework: info
@@ -479,8 +489,6 @@ logging:
     org.springframework.web: info
     cn.herodotus: info
     com.alicp.jetcache: info
-  file:
-    name: logs/dante-cloud-athena.log
 
 ---
 # 生产环境配置
