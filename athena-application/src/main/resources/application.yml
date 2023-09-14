@@ -12,7 +12,7 @@ spring:
   application:
     name:  @artifactId@
   profiles:
-    active: mysql8
+    active: postgresql
   main:
     allow-bean-definition-overriding: true
     log-startup-info: false
