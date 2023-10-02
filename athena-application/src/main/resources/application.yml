@@ -198,11 +198,6 @@ herodotus:
     enabled: false
   endpoint:
     issuer-uri: http://localhost:${server.port}
-    gateway-service-uri: ${herodotus.endpoint.issuer-uri}
-    uaa-service-uri: ${herodotus.endpoint.issuer-uri}
-    upms-service-uri: ${herodotus.endpoint.issuer-uri}
-    oss-service-uri: ${herodotus.endpoint.issuer-uri}
-    access-token-uri: ${herodotus.endpoint.issuer-uri}/oauth2/token
   rest:
     scan:
       enabled: true
@@ -424,11 +419,6 @@ herodotus:
     enabled: false
   endpoint:
     issuer-uri: http://localhost:${server.port}
-    gateway-service-uri: ${herodotus.endpoint.issuer-uri}
-    uaa-service-uri: ${herodotus.endpoint.issuer-uri}
-    upms-service-uri: ${herodotus.endpoint.issuer-uri}
-    oss-service-uri: ${herodotus.endpoint.issuer-uri}
-    access-token-uri: ${herodotus.endpoint.issuer-uri}/oauth2/token
   rest:
     scan:
       enabled: true
