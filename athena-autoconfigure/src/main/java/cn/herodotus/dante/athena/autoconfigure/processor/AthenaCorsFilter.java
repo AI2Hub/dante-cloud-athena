@@ -26,7 +26,7 @@
 package cn.herodotus.dante.athena.autoconfigure.processor;
 
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
-import cn.herodotus.engine.assistant.core.utils.HeadersUtils;
+import cn.herodotus.engine.assistant.core.utils.http.HeaderUtils;
 import com.google.common.net.HttpHeaders;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
@@ -52,14 +52,14 @@ public class AthenaCorsFilter implements Filter {
     private FilterConfig filterConfig;
     private static final String[] ACCESS_CONTROL_ALLOW_METHODS = new String[]{HttpMethod.GET.name(), HttpMethod.POST.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name(), HttpMethod.OPTIONS.name()};
 
-    private static final String[] ACCESS_CONTROL_ALLOW_HEADERS = new String[]{HttpHeaders.X_REQUESTED_WITH, HttpHeaders.AUTHORIZATION, HttpHeaders.CONTENT_TYPE, "X-XSRF-TOKEN", HeadersUtils.X_HERODOTUS_SESSION_ID, HeadersUtils.X_HERODOTUS_TENANT_ID};
+    private static final String[] ACCESS_CONTROL_ALLOW_HEADERS = new String[]{HttpHeaders.X_REQUESTED_WITH, HttpHeaders.AUTHORIZATION, HttpHeaders.CONTENT_TYPE, "X-XSRF-TOKEN", HeaderUtils.X_HERODOTUS_SESSION_ID, HeaderUtils.X_HERODOTUS_TENANT_ID};
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         response.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true");
-        response.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, request.getHeader(HttpHeaders.ORIGIN));
+        response.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, HeaderUtils.getOrigin(request));
         response.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, StringUtils.join(ACCESS_CONTROL_ALLOW_METHODS, SymbolConstants.COMMA));
         response.setHeader(HttpHeaders.ACCESS_CONTROL_MAX_AGE, "3600");
         response.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, StringUtils.join(ACCESS_CONTROL_ALLOW_HEADERS, SymbolConstants.COMMA));
