@@ -27,6 +27,7 @@ package cn.herodotus.dante.athena.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.stream.function.FunctionConfiguration;
 
 /**
  * <p>Project: dante-cloud-athena </p>
@@ -37,7 +38,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author : gengwei.zheng
  * @date : 2020/12/29 20:52
  */
-@SpringBootApplication
+@SpringBootApplication(exclude = {FunctionConfiguration.class})
 public class AthenaApplication {
 
     public static void main(String[] args) {
