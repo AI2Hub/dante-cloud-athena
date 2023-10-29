@@ -29,7 +29,7 @@
     <parent>
         <artifactId>dante-cloud-athena</artifactId>
         <groupId>cn.herodotus.dante.athena</groupId>
-        <version>3.1.5.1</version>
+        <version>3.1.5.2</version>
     </parent>
 
     <artifactId>athena-autoconfigure</artifactId>
@@ -38,12 +38,6 @@
         <dependency>
             <groupId>cn.herodotus.dante</groupId>
             <artifactId>authentication-spring-boot-starter</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-cloud-starter-stream-kafka</artifactId>
-                    <groupId>org.springframework.cloud</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>cn.herodotus.dante</groupId>
@@ -52,12 +46,6 @@
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
             <artifactId>message-spring-boot-starter</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-cloud-stream</artifactId>
-                    <groupId>org.springframework.cloud</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
