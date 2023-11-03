@@ -256,7 +256,7 @@ logging:
     org.springframework: info
     org.springframework.security: info
     org.springframework.web: info
-    cn.herodotus: info
+    cn.herodotus: debug
     com.alicp.jetcache: info
 
 ---
@@ -325,8 +325,8 @@ spring:
             mode: ENABLE_SELECTIVE
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
-        format_sql: false
-        show_sql: false
+        format_sql: true
+        show_sql: true
         generate_statistics: false
         cache:
           use_query_cache: true
@@ -477,6 +477,7 @@ logging:
     org.springframework: info
     org.springframework.security: info
     org.springframework.web: info
+    org.hibernate: debug
     cn.herodotus: info
     com.alicp.jetcache: info
 
