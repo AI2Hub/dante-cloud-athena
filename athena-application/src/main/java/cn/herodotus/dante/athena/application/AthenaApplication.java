@@ -30,9 +30,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.stream.function.FunctionConfiguration;
 
 /**
- * <p>Project: dante-cloud-athena </p>
- * <p>File: AthenaApplication.java </p>
- *
  * <p>Description: 应用启动文件 </p>
  *
  * @author : gengwei.zheng
