@@ -35,9 +35,6 @@ import org.springframework.cloud.bus.BusBridge;
 import org.springframework.context.annotation.Bean;
 
 /**
- * <p>Project: dante-cloud-athena </p>
- * <p>File: AthenaConfiguration </p>
- *
  * <p>Description: 单体版基础核心配置 </p>
  *
  * @author : gengwei.zheng
@@ -50,7 +47,7 @@ public class AthenaAutoConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- Core [Athena Auto Configure] Auto Configure.");
+        log.info("[Herodotus] |- Module [Athena Starter] Auto Configure.");
     }
 
     @Bean
