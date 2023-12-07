@@ -32,7 +32,7 @@
     <parent>
         <groupId>cn.herodotus.dante</groupId>
         <artifactId>dependencies</artifactId>
-        <version>3.1.6.0</version>
+        <version>3.2.0.0</version>
     </parent>
 
     <groupId>cn.herodotus.dante.athena</groupId>
@@ -47,16 +47,8 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <dante.cloud.version>3.1.6.0</dante.cloud.version>
+        <dante.cloud.version>3.2.0.0</dante.cloud.version>
     </properties>
-
-    <!-- 所有的子项目默认依赖 -->
-    <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-    </dependencies>
 
     <!-- 管理依赖版本号,子项目不会默认依赖 -->
     <dependencyManagement>
@@ -65,6 +57,13 @@
                 <groupId>cn.herodotus.dante.athena</groupId>
                 <artifactId>athena-autoconfigure</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-bom</artifactId>
+                <version>${netty.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
