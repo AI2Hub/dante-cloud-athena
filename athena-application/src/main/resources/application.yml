@@ -12,7 +12,7 @@ spring:
   application:
     name:  @artifactId@
   profiles:
-    active: postgresql
+    active: mysql8
   main:
     allow-bean-definition-overriding: true
     log-startup-info: false
@@ -477,7 +477,6 @@ logging:
     org.springframework: info
     org.springframework.security: info
     org.springframework.web: info
-    org.hibernate: debug
     cn.herodotus: info
     com.alicp.jetcache: info
 
