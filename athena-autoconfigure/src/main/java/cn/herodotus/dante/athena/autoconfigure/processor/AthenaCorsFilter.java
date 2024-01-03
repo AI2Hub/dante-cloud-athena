@@ -25,8 +25,8 @@
 
 package cn.herodotus.dante.athena.autoconfigure.processor;
 
-import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
 import cn.herodotus.engine.assistant.core.utils.http.HeaderUtils;
+import cn.herodotus.engine.assistant.definition.constants.SymbolConstants;
 import com.google.common.net.HttpHeaders;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
