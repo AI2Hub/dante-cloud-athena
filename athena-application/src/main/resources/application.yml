@@ -12,7 +12,7 @@ spring:
   application:
     name:  @artifactId@
   profiles:
-    active: mysql8
+    active: postgresql
   main:
     allow-bean-definition-overriding: true
     log-startup-info: false
@@ -26,11 +26,12 @@ spring:
       repository-type: indexed
       save-mode: always
       flush-mode: immediate
-
 jasypt:
   encryptor:
     password: ${JASPYT_HOME:2bda7d3a-dba1-45a4-b08e-cbd731a0418e}
 
+sms:
+  is-print: false
 ---
 # 开发环境配置
 spring:
@@ -91,7 +92,7 @@ spring:
       # DDL mode. This is actually a shortcut for the "hibernate.hbm2ddl.auto" property. Default to "create-drop" when using an embedded database, "none" otherwise.spring.jpa.hibernate.ddl-auto=update
       ddl-auto: update
       naming:
-        physical-strategy: cn.herodotus.engine.data.jpa.hibernate.HerodotusPhysicalNamingStrategy
+        physical-strategy: cn.herodotus.stirrup.data.jpa.hibernate.HerodotusPhysicalNamingStrategy
     properties:
       jakarta:
         persistence:
@@ -106,7 +107,7 @@ spring:
           use_query_cache: true
           use_second_level_cache: true
           region:
-            factory_class: cn.herodotus.engine.data.jpa.hibernate.spi.cache.HerodotusRegionFactory
+            factory_class: cn.herodotus.stirrup.data.jpa.hibernate.spi.cache.HerodotusRegionFactory
         jakarta:
           cache:
             missing_cache_strategy: create
@@ -317,7 +318,7 @@ spring:
       # DDL mode. This is actually a shortcut for the "hibernate.hbm2ddl.auto" property. Default to "create-drop" when using an embedded database, "none" otherwise.spring.jpa.hibernate.ddl-auto=update
       ddl-auto: update
       naming:
-        physical-strategy: cn.herodotus.engine.data.jpa.hibernate.HerodotusPhysicalNamingStrategy
+        physical-strategy: cn.herodotus.stirrup.data.jpa.hibernate.HerodotusPhysicalNamingStrategy
     properties:
       jakarta:
         persistence:
@@ -332,7 +333,7 @@ spring:
           use_query_cache: true
           use_second_level_cache: true
           region:
-            factory_class: cn.herodotus.engine.data.jpa.hibernate.spi.cache.HerodotusRegionFactory
+            factory_class: cn.herodotus.stirrup.data.jpa.hibernate.spi.cache.HerodotusRegionFactory
         jakarta:
           cache:
             missing_cache_strategy: create
