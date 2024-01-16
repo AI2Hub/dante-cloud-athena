@@ -31,6 +31,8 @@ jasypt:
   encryptor:
     password: ${JASPYT_HOME:2bda7d3a-dba1-45a4-b08e-cbd731a0418e}
 
+sms:
+  is-print: false
 ---
 # 开发环境配置
 spring:
