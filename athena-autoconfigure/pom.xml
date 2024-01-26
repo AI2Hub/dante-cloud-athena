@@ -29,7 +29,7 @@
     <parent>
         <artifactId>dante-cloud-athena</artifactId>
         <groupId>cn.herodotus.dante.athena</groupId>
-        <version>3.2.2.0</version>
+        <version>3.3.0.0-M1</version>
     </parent>
 
     <artifactId>athena-autoconfigure</artifactId>
@@ -44,7 +44,7 @@
             <artifactId>dante-module-metadata</artifactId>
         </dependency>
         <dependency>
-            <groupId>cn.herodotus.engine</groupId>
+            <groupId>cn.herodotus.stirrup</groupId>
             <artifactId>message-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
