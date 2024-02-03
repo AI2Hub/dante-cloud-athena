@@ -27,7 +27,7 @@ package cn.herodotus.dante.athena.autoconfigure.processor;
 
 import cn.herodotus.stirrup.core.definition.constants.HerodotusHeaders;
 import cn.herodotus.stirrup.core.definition.constants.SymbolConstants;
-import cn.herodotus.stirrup.web.core.utils.HeaderUtils;
+import cn.herodotus.stirrup.web.servlet.utils.HeaderUtils;
 import com.google.common.net.HttpHeaders;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
