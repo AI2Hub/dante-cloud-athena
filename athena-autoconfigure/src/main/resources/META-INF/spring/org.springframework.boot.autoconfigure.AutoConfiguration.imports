@@ -1,3 +1,3 @@
 cn.herodotus.dante.athena.autoconfigure.AthenaAutoConfiguration
 cn.herodotus.dante.module.metadata.configuration.MetadataModuleConfiguration
-cn.herodotus.engine.supplier.message.configuration.SupplierMessageConfiguration
+cn.herodotus.stirrup.rest.servlet.message.configuration.RestServletMessageConfiguration
